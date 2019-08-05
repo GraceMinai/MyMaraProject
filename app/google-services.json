@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "115577369266",
+    "firebase_url": "https://iprotect-cb103.firebaseio.com",
+    "project_id": "iprotect-cb103",
+    "storage_bucket": "iprotect-cb103.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:115577369266:android:f8401df4be6de970",
+        "android_client_info": {
+          "package_name": "www.charles.iprotect.com"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "115577369266-8icocbqbuechmi88mgpa5op23ra7q0dt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "www.charles.iprotect.com",
+            "certificate_hash": "1c57da75e4a283399596db73ee27b2935856835c"
+          }
+        },
+        {
+          "client_id": "115577369266-ldo4lq5h94tcupcd6b6e3cm1rkc4nliv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwMXA1Hv516v2kwLiNuLj_fHYcgSMuLM4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "115577369266-ldo4lq5h94tcupcd6b6e3cm1rkc4nliv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
