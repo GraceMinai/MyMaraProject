@@ -2,9 +2,20 @@ package www.charles.iprotect.com;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -12,6 +23,8 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 
@@ -35,13 +48,22 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         TabNewsFeed.OnFragmentInteractionListener,
         TabGetHelp.OnFragmentInteractionListener,
-        TabChat.OnFragmentInteractionListener{
+        TabChat.OnFragmentInteractionListener
+
+{
 
      private TabLayout mainTabLayout;
 
      ViewPager viewPager;
      PagerAdapter pagerAdapter;
     TextView chats, newsFeed, getHelp;
+    LocationListener mlocationListener;
+    GoogleApiClient googleApiClient;
+    GoogleMap mGoogleMap;
+    LocationManager locationManager;
+    private PagerAdapter myPagerAdapter;
+
+    private SupportMapFragment mapFragment;
 
 
     @Override
@@ -52,44 +74,21 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
-
-
-
-
-        mainTabLayout = (TabLayout)findViewById(R.id.Tablayout_id) ;
-        //Creating the tabs with the 'addTab' method
-        mainTabLayout.addTab(mainTabLayout.newTab().setText("Reports"));
-        mainTabLayout.addTab(mainTabLayout.newTab().setText("Get Help"));
-        mainTabLayout.addTab(mainTabLayout.newTab().setText("Chats"));
-        //setting all the tabs in a organised manner
+        /**
+         * setting the tabs on the main activity
+         */
+        viewPager = (ViewPager) findViewById(R.id.myViewPager_id);
+        myPagerAdapter = new PagerAdapter(getSupportFragmentManager());
+        /*
+        setting an adapter for the viewpager
+         */
+        viewPager.setAdapter(myPagerAdapter);
+        mainTabLayout = (TabLayout) findViewById(R.id.Tablayout_id);
+        mainTabLayout.setupWithViewPager(viewPager);
         mainTabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
 
 
-        //SETTING THE REFERENCE TO THE VIEW PAGER
 
-         viewPager = (ViewPager)findViewById(R.id.myViewPager_id) ;
-
-        //creating an object for our custom pager adapter
-        pagerAdapter = new PagerAdapter(getSupportFragmentManager(), mainTabLayout.getTabCount());
-        viewPager.setAdapter(pagerAdapter);
-       /** viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mainTabLayout));
-        mainTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        }); **/
-        //Adding a page change listener to the view pager
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -123,7 +122,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-
+         //This code is for the drawer layout
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -132,6 +131,7 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
+        //This code is for the map
 
 
 
@@ -144,7 +144,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed()
+    {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -154,14 +155,16 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
@@ -177,7 +180,8 @@ public class MainActivity extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(MenuItem item)
+    {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
@@ -206,12 +210,12 @@ public class MainActivity extends AppCompatActivity
 
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
+    public void onFragmentInteraction(Uri uri)
+    {
 
 
 
     }
-
 
 
 

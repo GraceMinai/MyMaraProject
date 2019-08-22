@@ -1,13 +1,16 @@
 package www.charles.iprotect.com;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+//import android.location.LocationListener;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -15,15 +18,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.common.api.GoogleApi;
+import com.google.android.gms.common.api.GoogleApiActivity;
+import com.google.android.gms.common.api.internal.ApiKey;
+import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+
+/**import com.google.android.gms.maps.CameraUpdateFactory;
+ import com.google.android.gms.maps.GoogleMap;
+ import com.google.android.gms.maps.OnMapReadyCallback;
+ import com.google.android.gms.maps.SupportMapFragment;
+ import com.google.android.gms.maps.model.BitmapDescriptor;
+ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+ import com.google.android.gms.maps.model.CameraPosition;
+ import com.google.android.gms.maps.model.LatLng;
+ import com.google.android.gms.maps.model.MarkerOptions;***/
 
 
 /**
@@ -34,7 +53,15 @@ import com.google.android.gms.maps.model.MarkerOptions;
  * Use the {@link TabGetHelp#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TabGetHelp extends Fragment  {
+public class TabGetHelp extends Fragment implements
+        OnMapReadyCallback
+{
+  private   GoogleMap myMap;
+  private  MapView mMapView;
+  private GoogleApi mGoogleApi;
+  private FusedLocationProviderClient  mFusedLocationClient;
+
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -82,44 +109,11 @@ public class TabGetHelp extends Fragment  {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView =  inflater.inflate(R.layout.fragment_tab_get_help, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_tab_get_help, container, false);
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.fragMap);
-        //use SuppoprtMapFragment for using in fragment instead of activity  MapFragment = activity   SupportMapFragment = fragment
-       mapFragment.getMapAsync(new OnMapReadyCallback() {
-           @Override
+        GoogleApiActivity googleApiActivity = new GoogleApiActivity();
 
-           //setting up the map
-           public void onMapReady(GoogleMap googleMap) {
-               googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-                googleMap.clear(); //clear old markers
-
-               //Following code will set the camera position.
-               CameraPosition cameraPosition = CameraPosition.builder()
-                       .target(new LatLng(-0.103090,34.756062 ))
-                       .zoom(10)
-                       .bearing(0)
-                       .tilt(45)
-                       .build();
-               //setting the cameraPosition
-               googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition),1000, null);
-               //setting up the marker to the map
-               googleMap.addMarker(new MarkerOptions()
-                         .position(new LatLng(-0.077455, 34.770935))
-                         .title("Blue Cross")
-                         .snippet("Railway Branch")
-                         .icon(bitmapDescriptorFromVector(getActivity(), R.drawable.ic_bluecross)));
-
-               googleMap.addMarker(new MarkerOptions()
-                         .position(new LatLng(-0.086060, 34.741969))
-                         .title("Your Location")
-                         .icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_userlocation)));
-           }
-       });
-
-
-        return rootView;
-
+        return  rootView;
 
 
     }
@@ -128,9 +122,9 @@ public class TabGetHelp extends Fragment  {
      * different icons on the map
      * to represent different places
      */
-    private BitmapDescriptor bitmapDescriptorFromVector(Context context, int vectorResId){
-        Drawable vectorDrawable = ContextCompat.getDrawable(context,vectorResId);
-        vectorDrawable.setBounds(0,0, vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight());
+    private BitmapDescriptor bitmapDescriptorFromVector(Context context, int vectorResId) {
+        Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResId);
+        vectorDrawable.setBounds(0, 0, vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight());
         Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         vectorDrawable.draw(canvas);
@@ -161,9 +155,73 @@ public class TabGetHelp extends Fragment  {
         mListener = null;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+
+        mMapView = view.findViewById(R.id.mapView);
+        mMapView.onCreate(null);
+        mMapView.onResume();
+        mMapView.getMapAsync(this);
+    }
+
+    /*
+         This method is for the map
+          */
+    @SuppressLint("MissingPermission")
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        MapsInitializer.initialize(getContext());
+        myMap = googleMap;
+
+
+
+        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        /**
+         * Setting the position of the camera
+         */
+        CameraPosition cameraPosition = CameraPosition.builder()
+                .target(new LatLng(-0.103090, 34.756062))
+                .zoom(10)
+                .bearing(0)
+                .tilt(45)
+                .build();
+
+        /*
+        Animating the camera
+         */
+        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 1000, null);
+        googleMap.addMarker(new MarkerOptions()
+                .position(new LatLng(-0.077455, 34.770935))
+                .title("Blue Cross")
+                .snippet("Railways branch")
+                .icon(bitmapDescriptorFromVector(getActivity(), R.drawable.ic_bluecross)));
+
+
+        /**
+         * Geting the current location of the user
+         *
+         */
+
+        myMap.setMyLocationEnabled(true);
+    }
+
+    public ApiKey getApiKey()
+    {
+
+       //  mGoogleApi = new GoogleApi()
+
+
+
+        return null;
+
+
+    }
 
 
     /**
+
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that

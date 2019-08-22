@@ -18,8 +18,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
-
-
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAsKo-Bvg_GZsAR7zFdFDMhCp6MpjFNDME</string>
 
 </resources>

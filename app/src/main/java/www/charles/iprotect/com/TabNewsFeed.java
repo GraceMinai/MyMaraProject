@@ -1,6 +1,8 @@
 package www.charles.iprotect.com;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -9,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 
 /**
@@ -30,6 +33,8 @@ public class TabNewsFeed extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private Button btn_next;
+    private View myMainView;
 
     public TabNewsFeed() {
         // Required empty public constructor
@@ -66,7 +71,18 @@ public class TabNewsFeed extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tab_news_feed, container, false);
+     myMainView = inflater.inflate(R.layout.fragment_tab_news_feed, container, false);
+
+     btn_next = (Button) myMainView.findViewById(R.id.btn_next);
+     btn_next.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v)
+         {
+          btn_next.setBackgroundResource(R.color.colorAccent);
+         }
+     });
+
+     return myMainView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

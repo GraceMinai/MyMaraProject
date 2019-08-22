@@ -1,53 +1,70 @@
 package www.charles.iprotect.com;
 
+
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.FragmentPagerAdapter;
 
-public class PagerAdapter extends FragmentStatePagerAdapter {
+public class PagerAdapter extends FragmentPagerAdapter
+{
+    /**
+     * Generating a constructor for the pager adapter
+     */
 
-    //creating a constructor for our adapter
-
-    int numberOfTabs;
-
-    public PagerAdapter(FragmentManager fragmentManager, int NumberOfTabs)
+    public PagerAdapter(FragmentManager fragmentManager)
     {
         super(fragmentManager);
-        //seting the global number of tabs to the local number of tabs
-
-        this.numberOfTabs = NumberOfTabs;
     }
-
-
+    /**
+     * getting the position of the fragment that the user has selected.
+     */
     @Override
-    public Fragment getItem(int position) {
+    public Fragment getItem(int position)
+    {
+       switch (position)
+       {
+           case 0:
+               TabNewsFeed tabNewsFeed = new TabNewsFeed();
+               return tabNewsFeed;
 
-       //creating a switch for the position of the tabs
+           case 1:
+               TabGetHelp tabGetHelp = new TabGetHelp();
+               return tabGetHelp;
 
-        switch (position)
-        {
-            case 0:
-                TabNewsFeed tabNewsFeed = new TabNewsFeed();
-                return tabNewsFeed;
-            case 1:
-                TabGetHelp tabGetHelp = new TabGetHelp();
-                return tabGetHelp;
+           case 2:
+               TabChat tabChat = new TabChat();
+               return tabChat;
 
-            case 2:
-                TabChat tabChat = new TabChat();
-                return tabChat;
-            default:
-                return null;
-
-
-        }
-
-
-
+           default:
+               return null;
+       }
     }
 
     @Override
-    public int getCount() {
-        return numberOfTabs;
+    public int getCount()
+    {
+        return 3;
+    }
+
+    /**
+     * Setting the title of the tab on the view pager
+     */
+    @Nullable
+    @Override
+    public CharSequence getPageTitle(int position)
+    {
+      switch (position)
+      {
+          case 0:
+              return "REPORTS";
+          case 1:
+              return "Help";
+          case 2:
+              return "Chats";
+              default:
+
+                  return null;
+      }
     }
 }
