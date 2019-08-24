@@ -72,6 +72,7 @@ public class TabGetHelp extends Fragment implements
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private Object GoogleApi;
 
     public TabGetHelp() {
         // Required empty public constructor
@@ -209,8 +210,6 @@ public class TabGetHelp extends Fragment implements
 
     public ApiKey getApiKey()
     {
-
-       //  mGoogleApi = new GoogleApi()
 
 
 
