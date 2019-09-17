@@ -1,7 +1,12 @@
 package www.charles.iprotect.com;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -11,11 +16,19 @@ import android.os.Bundle;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.LocationSource;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -25,6 +38,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 
@@ -47,15 +61,13 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         TabNewsFeed.OnFragmentInteractionListener,
-        TabGetHelp.OnFragmentInteractionListener,
         TabChat.OnFragmentInteractionListener
+         {
 
-{
+    private TabLayout mainTabLayout;
 
-     private TabLayout mainTabLayout;
-
-     ViewPager viewPager;
-     PagerAdapter pagerAdapter;
+    ViewPager viewPager;
+    PagerAdapter pagerAdapter;
     TextView chats, newsFeed, getHelp;
     LocationListener mlocationListener;
     GoogleApiClient googleApiClient;
@@ -64,6 +76,7 @@ public class MainActivity extends AppCompatActivity
     private PagerAdapter myPagerAdapter;
 
     private SupportMapFragment mapFragment;
+    private FusedLocationProviderClient fusedLocationProviderClient;
 
 
     @Override
@@ -73,6 +86,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         /**
          * setting the tabs on the main activity
@@ -86,7 +100,6 @@ public class MainActivity extends AppCompatActivity
         mainTabLayout = (TabLayout) findViewById(R.id.Tablayout_id);
         mainTabLayout.setupWithViewPager(viewPager);
         mainTabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
-
 
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -105,7 +118,8 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
-        mainTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        mainTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener()
+        {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
@@ -120,9 +134,10 @@ public class MainActivity extends AppCompatActivity
             public void onTabReselected(TabLayout.Tab tab) {
 
             }
+
         });
 
-         //This code is for the drawer layout
+        //This code is for the drawer layout
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -134,8 +149,6 @@ public class MainActivity extends AppCompatActivity
         //This code is for the map
 
 
-
-
     }
 
     private void nxt() {
@@ -144,10 +157,10 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onBackPressed()
-    {
+    public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
+        if (drawer.isDrawerOpen(GravityCompat.START))
+        {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
@@ -185,16 +198,23 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_home) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_getHelp)
+        {
+          Intent  grantPermissionIntent = new Intent(MainActivity.this, GrantPermission.class);
+          startActivity(grantPermissionIntent);
+        }
+        else if (id == R.id.nav_gallery)
+        {
 
             Intent intent = new Intent(this, UserPhotoActivity.class);
             startActivity(intent);
 
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_tools) {
+        } else if (id == R.id.nav_contactExpert)
+        {
+           startActivity(new Intent(MainActivity.this, GetHelp.class));
+        }
+        else if (id == R.id.nav_tools)
+        {
 
         } else if (id == R.id.nav_share) {
 
@@ -208,17 +228,12 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
     @Override
     public void onFragmentInteraction(Uri uri)
     {
 
 
-
     }
-
-
-
 
 
 }

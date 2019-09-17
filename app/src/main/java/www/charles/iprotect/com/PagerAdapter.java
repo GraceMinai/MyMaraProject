@@ -28,11 +28,8 @@ public class PagerAdapter extends FragmentPagerAdapter
                TabNewsFeed tabNewsFeed = new TabNewsFeed();
                return tabNewsFeed;
 
-           case 1:
-               TabGetHelp tabGetHelp = new TabGetHelp();
-               return tabGetHelp;
 
-           case 2:
+           case 1:
                TabChat tabChat = new TabChat();
                return tabChat;
 
@@ -44,7 +41,7 @@ public class PagerAdapter extends FragmentPagerAdapter
     @Override
     public int getCount()
     {
-        return 3;
+        return 2;
     }
 
     /**
@@ -58,9 +55,8 @@ public class PagerAdapter extends FragmentPagerAdapter
       {
           case 0:
               return "REPORTS";
+
           case 1:
-              return "Help";
-          case 2:
               return "Chats";
               default:
 

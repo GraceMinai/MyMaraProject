@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GrantPermission"
+    android:padding="25dp">
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:gravity="center_horizontal">
+          
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Permission Request"
+              android:textSize="20sp"
+              android:layout_marginTop="30dp"
+              android:textStyle="bold"
+              android:fontFamily="sans-serif-condensed"
+              />
+
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="iProtect need permission to access device location in order to provide required service. Please allow permission."
+              android:gravity="center_horizontal"
+              android:layout_marginTop="100dp"
+              android:textSize="20dp"/>
+
+      </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_grantPermission"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorBlue"
+        android:text="Grant Permission"
+        android:textAllCaps="false"
+        android:textSize="16dp"
+        android:textColor="#fff"/>
+
+</RelativeLayout>
