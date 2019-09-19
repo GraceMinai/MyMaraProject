@@ -213,8 +213,9 @@ public class MainActivity extends AppCompatActivity
         {
            startActivity(new Intent(MainActivity.this, GetHelp.class));
         }
-        else if (id == R.id.nav_tools)
+        else if (id == R.id.nav_PostedIssues)
         {
+            startActivity(new Intent(MainActivity.this, UserPostsActivity.class));
 
         } else if (id == R.id.nav_share) {
 
