@@ -6,4 +6,5 @@
     <color name="colorBlue">#5884FB</color>
     <color name="colorWhite">#fff</color>
     <color name="colorTabBackground">#061335</color>
+    <color name="dividerColor">#F5A9D0</color>
 </resources>

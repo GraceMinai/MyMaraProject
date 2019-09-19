@@ -17,17 +17,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorBlue"
             app:popupTheme="@style/AppTheme.PopupOverlay"/>
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/Tablayout_id"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorBlue"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            android:layout_below="@+id/toolbar"
-            app:tabTextColor="@color/colorWhite"
-            app:tabGravity="center"
-            app:tabSelectedTextColor="@color/colorWhite"
-            />
+
 
     </com.google.android.material.appbar.AppBarLayout>
 

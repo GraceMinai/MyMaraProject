@@ -47,7 +47,7 @@ public class GrantPermission extends AppCompatActivity
                 == PackageManager.PERMISSION_GRANTED)
         {
             //if the permission is already granted the MapsActivity will start
-            startActivity(new Intent(GrantPermission.this, MapsActivity.class));
+            startActivity(new Intent(GrantPermission.this, MainActivity.class));
             //Finish the activity
             finish();
             //Calling return
@@ -69,7 +69,7 @@ public class GrantPermission extends AppCompatActivity
                                 public void onPermissionGranted(PermissionGrantedResponse response)
                                 {
                                     //If the permission is granted then send the uer to MapsActivity
-                                    startActivity(new Intent(GrantPermission.this, MapsActivity.class));
+                                    startActivity(new Intent(GrantPermission.this, MainActivity.class));
                                     finish();
 
 
@@ -99,6 +99,7 @@ public class GrantPermission extends AppCompatActivity
                                                         Intent settingsIntent = new Intent();
                                                         settingsIntent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                                                         settingsIntent.setData(Uri.fromParts("package", getPackageName(), null));
+                                                        startActivity(settingsIntent);
                                                     }
                                                 })
                                                 .show();
