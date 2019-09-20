@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".GetHelp"
+    tools:showIn="@layout/activity_get_help">
+
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="10"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorAccent"
+            android:layout_gravity="center"
+            android:text="Enter details here"
+            android:layout_marginTop="25dp"
+            android:textSize="18dp"
+            android:textStyle="italic"/>
+
+        <EditText
+            android:id="@+id/userFirstName"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="15dp"
+            android:textColorHint="@color/colorAccent"
+            android:hint="First name"
+            android:textColor="#000"
+            android:layout_marginTop="20dp">
+
+        </EditText>
+
+        <EditText
+            android:id="@+id/userSecondName"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="15dp"
+            android:textColorHint="@color/colorAccent"
+            android:hint="Second name"
+            android:textColor="#000"
+            android:layout_marginTop="20dp">
+
+        </EditText>
+
+        <EditText
+            android:id="@+id/userSurname"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="15dp"
+            android:textColorHint="@color/colorAccent"
+            android:hint="Surname"
+            android:textColor="#000"
+            android:layout_marginTop="20dp">
+
+        </EditText>
+
+        <EditText
+            android:id="@+id/userEmailAddress"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="15dp"
+            android:textColorHint="@color/colorAccent"
+            android:hint="Email address"
+            android:textColor="#000"
+            android:layout_marginTop="20dp">
+
+        </EditText>
+
+        <EditText
+            android:id="@+id/userPhoneNumber"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="15dp"
+            android:textColorHint="@color/colorAccent"
+            android:hint="Phone number"
+            android:textColor="#000"
+            android:layout_marginTop="20dp">
+
+        </EditText>
+
+        <EditText
+            android:id="@+id/userAge"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="15dp"
+            android:textColorHint="@color/colorAccent"
+            android:hint="Age"
+            android:textColor="#000"
+            android:layout_marginTop="20dp">
+
+        </EditText>
+
+
+        <EditText
+            android:id="@+id/usersPlaceOfRecidence"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="15dp"
+            android:textColorHint="@color/colorAccent"
+            android:hint="Place of recidence"
+            android:textColor="#000"
+            android:layout_marginTop="20dp">
+
+        </EditText>
+
+        <EditText
+            android:id="@+id/userIssue"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="15dp"
+            android:textColorHint="@color/colorAccent"
+            android:hint="Briefly explain your issue"
+            android:textColor="#000"
+            android:layout_marginTop="20dp">
+
+        </EditText>
+
+        <EditText
+            android:id="@+id/usersNeed"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="15dp"
+            android:textColorHint="@color/colorAccent"
+            android:hint="Explain how you'd like to be assisted"
+            android:textColor="#000"
+            android:layout_marginTop="20dp"
+            android:outlineAmbientShadowColor="#000"
+            android:textColorHighlight="#000">
+
+        </EditText>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10dp"
+            android:textColor="@color/colorAccent"
+            android:textStyle="italic"
+            android:text="Accept terms of use"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="15dp"
+            >
+
+        </TextView>
+
+
+        <CheckBox
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="15dp"
+            android:id="@+id/user_checkbox">
+
+        </CheckBox>
+
+
+
+
+        <Button
+            android:id="@+id/btn_submmit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:background="@color/colorAccent"
+            android:text="SUBMIT"
+            android:textColor="#fff"
+            android:layout_marginBottom="5dp">
+
+        </Button>
+
+
+    </LinearLayout>
+  </ScrollView>
+
+
+
+
+</RelativeLayout>

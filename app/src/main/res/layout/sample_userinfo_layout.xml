@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <TextView
+        android:id="@+id/ret_userFirstName"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/colorAccent"
+        android:text="First name : Charles "
+        android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large"
+      >
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/ret_userSecondName"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/colorAccent"
+        android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large"
+        android:text="Second name : Ouma"
+        >
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/ret_userSurname"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/colorAccent"
+        android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large"
+        android:text="Surname : Odero"
+        >
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/ret_userEmailAddress"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/colorAccent"
+        android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large"
+        android:text="Email address : oderocharlesouma@gmail.com"
+        >
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/ret_userPhonenumber"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/colorAccent"
+        android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large"
+        android:text="Phone number : 0703356953"
+        >
+
+    </TextView>
+
+
+    <TextView
+        android:id="@+id/ret_userPlaceOfRecidence"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/colorAccent"
+        android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large"
+        android:text="Place of recidence: Mannyatta"
+        >
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/ret_userAge"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/colorAccent"
+        android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large"
+        android:text="Age : 21"
+        >
+
+    </TextView>
+
+
+    <TextView
+        android:id="@+id/ret_userIssue"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/colorAccent"
+        android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large"
+        android:text="Issue of concern : Mental health"
+        >
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/ret_userNeed"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/colorAccent"
+        android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large"
+        android:text="Need : To see a professional health expert"
+        >
+
+    </TextView>
+
+
+
+
+</LinearLayout>

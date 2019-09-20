@@ -55,6 +55,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -87,6 +88,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Handler;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback
@@ -108,23 +110,24 @@ public class MainActivity extends AppCompatActivity
     private View mapView;
 
 
-    private final float DEFAULT_ZOOM = 18;
+    private final float DEFAULT_ZOOM = 15;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //Toolbar toolbar = findViewById(R.id.toolbar);
+       // setSupportActionBar(toolbar);
 
 
         //This code is for the drawer layout
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+
+        /**ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
-        toggle.syncState();
+        toggle.syncState();**/
         navigationView.setNavigationItemSelectedListener(this);
 
         //initializing the views
@@ -163,7 +166,11 @@ public class MainActivity extends AppCompatActivity
                 //This code is for the functions of the button on the MaterialSearchBar
                 if (buttonCode == MaterialSearchBar.BUTTON_NAVIGATION)
                 {
-                    //We'll add a navigation drawer later on
+                    DrawerLayout drawer = findViewById(R.id.drawer_layout);
+                    NavigationView navigationView = findViewById(R.id.nav_view);
+
+                    drawer.openDrawer(Gravity.LEFT);
+
                 }
                 else if (buttonCode == MaterialSearchBar.BUTTON_BACK)
                 {
@@ -260,7 +267,60 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+        btnLocateCenter.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                showMarkersOnTheMap();
 
+            }
+        });
+
+
+    }
+
+    //This method is for displaying markers on the map
+    private void showMarkersOnTheMap()
+
+    {
+        //Adding a marker at Kisumu county referral hospital
+        LatLng ksmCountyReferalHsp = new LatLng(-0.101537, 34.755620);
+        mMap.addMarker(new MarkerOptions()
+            .position(ksmCountyReferalHsp)
+            .title("Kisumu County Referral Hospital")
+            .snippet("Ward 8")
+            .snippet("Contact : 0710286818"));
+
+
+        //Adding a marker at Blue Cross Railways branch
+
+        LatLng blueCrossRailwaysBranch = new LatLng(-0.077059, 34.771637);
+        mMap.addMarker(new MarkerOptions()
+             .position(blueCrossRailwaysBranch)
+             .title("Blue Cross Railways Branch")
+             .snippet("Contact : 0792965139")
+             .snippet("website - www.bluecrosskisumu.org"));
+
+        //Adding marker at Lutheran Special School
+
+        LatLng lutheraSpecialSchool = new LatLng(-0.106248, 34.768604);
+        mMap.addMarker(new MarkerOptions()
+            .position(lutheraSpecialSchool)
+            .title("Lutheran Special School"));
+
+        //Adding a marker at JOOORTH
+
+        LatLng joorth = new LatLng(-0.088576, 34.771490);
+        mMap.addMarker(new MarkerOptions()
+            .position(joorth)
+            .title("Jaramogi Oginga Odinga Teaching & Referal Hospital")
+            .snippet("Contact : 0736662522")
+            .snippet("website - www.jaramogireferral.go.ke"));
+
+        //Including the ripple background on the current user location
+        LatLng currentMarkerPosition = mMap.getCameraPosition().target;
+        rippleBg.startRippleAnimation();
 
     }
 
@@ -419,7 +479,7 @@ public class MainActivity extends AppCompatActivity
      * if the user accepted the request to turn on the location settings
      */
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 101)
         {
@@ -459,6 +519,7 @@ public class MainActivity extends AppCompatActivity
                                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(userLastKnownLocation.getLatitude(),
                                         userLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
 
+
                             }
                             else
                             {
@@ -482,6 +543,7 @@ public class MainActivity extends AppCompatActivity
                                             userLastKnownLocation = locationResult.getLastLocation();
                                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(userLastKnownLocation.getLatitude(),
                                                     userLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+
                                             //Removing the location update fron the callback
                                             mFusedLocationProviderClient.removeLocationUpdates(locationCallback);
                                         }

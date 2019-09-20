@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".MapsActivity"
-    tools:showIn="@layout/activity_maps"
+    tools:context=".MainActivity"
+    tools:showIn="@layout/activity_main"
     android:theme="@style/AppTheme.NoActionBar">
 
     <com.mancj.materialsearchbar.MaterialSearchBar
@@ -35,13 +35,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/rippleBg"
-        app:rb_color="#0099CC"
+        app:rb_color="#F2EFFB"
         app:rb_radius="20dp"
         app:rb_rippleAmount="3"
         app:rb_duration="3000"
         app:rb_scale="6"
         android:layout_centerInParent="true">
-        <ImageView
+       <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
