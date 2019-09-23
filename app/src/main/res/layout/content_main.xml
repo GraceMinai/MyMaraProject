@@ -50,17 +50,42 @@
         </ImageView>
     </com.skyfishjy.library.RippleBackground>
 
-
-    <Button
-        android:id="@+id/btnLocateCenter"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Locate nearby center"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorBlue"
-        android:textColor="#fff"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
         android:layout_margin="16dp"
-        android:textAllCaps="false"/>
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btnLocateCenter"
+            android:layout_width="135dp"
+            android:layout_height="wrap_content"
+            android:text=" Find Nearby Rehub"
+            android:background="@drawable/buttons_boder"
+            android:textColor="#fff"
+            android:textAllCaps="false"
+            android:textAlignment="center"/>
+
+        <Button
+
+            android:id="@+id/btnContactExpert"
+            android:layout_width="135dp"
+            android:layout_height="wrap_content"
+            android:text="Find Expert Help"
+            android:background="@drawable/buttons_boder"
+            android:textColor="#fff"
+            android:textAllCaps="false"
+            android:layout_marginStart="6dp"
+            android:textAlignment="center"/>
+
+
+    </LinearLayout>
+
+
+
 
 
 </RelativeLayout>

@@ -6,5 +6,7 @@
     <color name="colorBlue">#5884FB</color>
     <color name="colorWhite">#fff</color>
     <color name="colorTabBackground">#061335</color>
-    <color name="dividerColor">#F5A9D0</color>
+    <color name="dividerColor">#BE81F7</color>
+    <color name="goldenColor">#ACFA58</color>
+    <color name="colorEditTextHint">#747070</color>
 </resources>

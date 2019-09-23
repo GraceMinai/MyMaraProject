@@ -1,4 +1,4 @@
-package www.charles.iprotect.com;
+package www.mara.android.com;
 
 import android.content.Context;
 

@@ -1,4 +1,4 @@
-package www.charles.iprotect.com;
+package www.mara.android.com;
 
 import android.Manifest;
 import android.content.DialogInterface;
@@ -21,7 +21,6 @@ import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
-import com.theartofdev.edmodo.cropper.CropImage;
 
 
 public class GrantPermission extends AppCompatActivity

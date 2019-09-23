@@ -5,44 +5,94 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".GrantPermission"
-    android:padding="25dp">
+    android:padding="20dp"
+    android:background="#fff">
 
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="vertical"
-          android:gravity="center_horizontal">
-          
-          <TextView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="Permission Request"
-              android:textSize="20sp"
-              android:layout_marginTop="30dp"
-              android:textStyle="bold"
-              android:fontFamily="sans-serif-condensed"
-              />
+     <RelativeLayout
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:padding="10dp"
+         android:layout_marginBottom="10dp">
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="20dp"
+             android:orientation="horizontal"
+             android:gravity="center_vertical"
+             android:weightSum="2"
+             >
+
+         <View
+             android:layout_width="fill_parent"
+             android:layout_height="2dp"
+             android:layout_weight="1"
+             android:background="@color/goldenColor">
+         </View>
+
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:gravity="bottom"
+             android:textSize="18dp"
+             android:text="Permission Request"
+             android:textColor="#2d2d2d"
+             android:textStyle="bold"
+             android:fontFamily="sans-serif-condensed"
+             >
+
+         </TextView>
+
+         <View
+             android:layout_width="fill_parent"
+             android:layout_height="2dp"
+             android:layout_marginRight="5dp"
+             android:background="@color/goldenColor"
+             >
+
+         </View>
+
+         </LinearLayout>
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:padding="10dp"
+             android:orientation="vertical"
+             android:layout_marginTop="10dp"
+             android:background="@drawable/details_border"
+             android:gravity="center_horizontal"
+             >
+
+             <TextView
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="iProtect need permission to access device location in order to provide required service. Please allow permission."
+                 android:gravity="center_horizontal"
+                 android:layout_marginTop="100dp"
+                 android:textSize="20dp"
+                 android:textColor="@color/colorAccent">
+
+             </TextView>
+
+         </LinearLayout>
 
 
-          <TextView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="iProtect need permission to access device location in order to provide required service. Please allow permission."
-              android:gravity="center_horizontal"
-              android:layout_marginTop="100dp"
-              android:textSize="20dp"/>
 
-      </LinearLayout>
+
+
+     </RelativeLayout>
+
 
     <Button
         android:id="@+id/btn_grantPermission"
-        android:layout_width="match_parent"
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorBlue"
+        android:background="@drawable/grant_permission_btn_bodder"
         android:text="Grant Permission"
         android:textAllCaps="false"
         android:textSize="16dp"
-        android:textColor="#fff"/>
+        android:textColor="#fff"
+        android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

@@ -1,22 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".RetriveUserInfomation">
+    tools:context=".RetriveUserInfomation"
+    >
 
-    <ListView
-        android:id="@+id/userInfoListView"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/posts_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBlue"
+        style="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:titleTextColor="#fff"
+        >
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:dividerHeight="7dp"
-        android:divider="@color/dividerColor"
-        android:padding="10dp">
-
-    </ListView>
+        android:layout_below="@id/posts_toolbar"
+        android:layout_marginTop="5dp">
 
 
 
-</LinearLayout>
+
+        <ListView
+            android:id="@+id/userInfoListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:dividerHeight="7dp"
+            android:divider="@color/dividerColor"
+            android:padding="10dp">
+
+        </ListView>
+
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

@@ -1,9 +1,11 @@
-package www.charles.iprotect.com;
+package www.mara.android.com;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -28,6 +30,19 @@ public class RetriveUserInfomation extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_retrive_user_infomation);
+        Toolbar postToolbar = findViewById(R.id.posts_toolbar);
+        setSupportActionBar(postToolbar);
+
+        getSupportActionBar().setTitle("patient inquiers");
+        postToolbar.setNavigationIcon(R.drawable.ic_toolbar_nav_back);
+        postToolbar.setNavigationOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+               onBackPressed();
+            }
+        });
 
         mListView = findViewById(R.id.userInfoListView);
 
@@ -74,4 +89,6 @@ public class RetriveUserInfomation extends AppCompatActivity
         });
         super.onStart();
     }
+
+
 }

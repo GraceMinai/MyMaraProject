@@ -1,4 +1,4 @@
-package www.charles.iprotect;
+package www.mara.android;
 
 import org.junit.Test;
 

@@ -1,22 +1,10 @@
-package www.charles.iprotect.com;
+package www.mara.android.com;
 
-import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -28,12 +16,8 @@ import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.LocationSource;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -48,27 +32,19 @@ import com.google.android.libraries.places.api.model.TypeFilter;
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest;
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.tabs.TabLayout;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 import com.mancj.materialsearchbar.adapter.SuggestionsAdapter;
 import com.skyfishjy.library.RippleBackground;
@@ -76,19 +52,14 @@ import com.skyfishjy.library.RippleBackground;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.viewpager.widget.ViewPager;
 
 import android.view.Menu;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Handler;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback
@@ -106,7 +77,7 @@ public class MainActivity extends AppCompatActivity
 
     //Oblects related to the xml views
     private MaterialSearchBar materialSearchBar;
-    private Button btnLocateCenter;
+    private Button btnLocateCenter, btnFindExpert;
     private View mapView;
 
 
@@ -134,6 +105,7 @@ public class MainActivity extends AppCompatActivity
         materialSearchBar = (MaterialSearchBar) findViewById(R.id.placesSearchBar);
         btnLocateCenter = (Button)findViewById(R.id.btnLocateCenter);
         rippleBg = (RippleBackground)findViewById(R.id.rippleBg);
+        btnFindExpert = findViewById(R.id.btnContactExpert);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_id);
         mapFragment.getMapAsync(this);
@@ -276,6 +248,14 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+        btnFindExpert.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                startActivity(new Intent(MainActivity.this, GetHelp.class));
+            }
+        });
 
 
     }
@@ -359,27 +339,39 @@ public class MainActivity extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(MenuItem item)
+    {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_getHelp) {
-
-        } else if (id == R.id.nav_gallery) {
-
-            Intent intent = new Intent(this, UserPhotoActivity.class);
-            startActivity(intent);
-
-        } else if (id == R.id.nav_contactExpert) {
+         if (id == R.id.nav_contactExpert)
+         {
             startActivity(new Intent(MainActivity.this, GetHelp.class));
-        } else if (id == R.id.nav_PostedIssues) {
+
+         } else if (id == R.id.nav_PostedIssues)
+         {
             startActivity(new Intent(MainActivity.this, RetriveUserInfomation.class));
 
-        } else if (id == R.id.nav_share) {
+         }
+         else if (id == R.id.nav_share)
+         {
+             //Sharing the app
 
-        } else if (id == R.id.nav_send) {
+             Intent shareIntent = new Intent(Intent.ACTION_SEND);
+             shareIntent.setAction("text/plain");
+             String shareLink = "https://download_charles.iprotect.com;/";
+             String shareSubject = "Try this awesome app";
 
-        }
+             shareIntent.putExtra(Intent.EXTRA_TEXT, shareLink);
+             shareIntent.putExtra(Intent.EXTRA_SUBJECT, shareSubject);
+
+             startActivity(Intent.createChooser(shareIntent,"Share through"));
+
+         }
+         else if (id == R.id.nav_forum)
+         {
+
+         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

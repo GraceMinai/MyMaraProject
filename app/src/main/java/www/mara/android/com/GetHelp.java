@@ -1,10 +1,8 @@
-package www.charles.iprotect.com;
+package www.mara.android.com;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -13,9 +11,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.text.TextUtils;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -25,9 +21,10 @@ public class GetHelp extends AppCompatActivity
     private EditText userFirstName, userSecondName, userSurname, userAge,
             userEmailAdress, userPhoneNumber,userPlaceOfResidence,
             userIssue,usersNeed;
+    private ProgressDialog mProgressDialog;
 
     private Button btnSummit;
-    private CheckBox mCheckBox;
+
 
     FirebaseDatabase mFirebaseDatabase;
     DatabaseReference mDatabaseRef;
@@ -42,6 +39,23 @@ public class GetHelp extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_help);
+        Toolbar contactProfToolbar = findViewById(R.id.contactProf_toolbar);
+
+        setSupportActionBar(contactProfToolbar);
+        getSupportActionBar().setTitle("Connect With Health Expert");
+        contactProfToolbar.setNavigationIcon(R.drawable.ic_toolbar_nav_back);
+        contactProfToolbar.setNavigationOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                onBackPressed();
+            }
+        });
+
+        //Creating an instance to the progress bar
+
+        mProgressDialog = new ProgressDialog(this);
 
 
 
@@ -55,7 +69,6 @@ public class GetHelp extends AppCompatActivity
         usersNeed = findViewById(R.id.usersNeed);
         userAge = findViewById(R.id.userAge);
 
-        mCheckBox = findViewById(R.id.user_checkbox);
 
         //Creating an instance to the databaseRef
 
@@ -64,23 +77,14 @@ public class GetHelp extends AppCompatActivity
         btnSummit = (Button)findViewById(R.id.btn_submmit);
 
         //Checking if the user has accepted terms of use
-        btnSummit.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                if (mCheckBox.isChecked())
-                {
-                    btnSummit.setBackgroundResource(R.color.colorPrimaryDark);
-                    sendInfoToProffessional();
-                }
-                else if (!mCheckBox.isChecked())
-                {
-                    btnSummit.setBackgroundResource(R.color.colorAccent);
-                    Toast.makeText(GetHelp.this, "Please accept terms of use before proceeding", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+       btnSummit.setOnClickListener(new View.OnClickListener()
+       {
+           @Override
+           public void onClick(View v)
+           {
+               sendInfoToProffessional();
+           }
+       });
 
 
 
@@ -121,6 +125,10 @@ public class GetHelp extends AppCompatActivity
              */
 
 
+              mProgressDialog.setTitle("Sending information");
+              mProgressDialog.setMessage("Please wait.Your information is being sent to health experts");
+
+
             //Generating a special id for each user
             String userKey = mDatabaseRef.push().getKey();
 
@@ -138,6 +146,11 @@ public class GetHelp extends AppCompatActivity
             userAge.setText("");
             userIssue.setText("");
             usersNeed.setText("");
+
+            //Dismissing the progress dialog
+            mProgressDialog.dismiss();
+
+
 
             //Informing the user that the information has been uploaded
             Toast.makeText(this, "Sent successfully", Toast.LENGTH_SHORT).show();
