@@ -23,7 +23,7 @@
         </activity>
         <activity android:name="www.mara.android.com.RetriveUserInfomation" />
         <activity
-            android:name="www.mara.android.com.GetHelp"
+            android:name="www.mara.android.com.ConnectWithExpert"
             android:label="@string/title_activity_get_help"
             android:theme="@style/AppTheme" />
         <activity android:name="www.mara.android.com.GrantPermission">

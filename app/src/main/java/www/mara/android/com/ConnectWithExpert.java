@@ -15,7 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class GetHelp extends AppCompatActivity
+public class ConnectWithExpert extends AppCompatActivity
 {
 
     private EditText userFirstName, userSecondName, userSurname, userAge,
@@ -42,7 +42,7 @@ public class GetHelp extends AppCompatActivity
         Toolbar contactProfToolbar = findViewById(R.id.contactProf_toolbar);
 
         setSupportActionBar(contactProfToolbar);
-        getSupportActionBar().setTitle("Connect With Health Expert");
+        getSupportActionBar().setTitle("Connect With Expert");
         contactProfToolbar.setNavigationIcon(R.drawable.ic_toolbar_nav_back);
         contactProfToolbar.setNavigationOnClickListener(new View.OnClickListener()
         {

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#366BFC</color>
+    <color name="colorPrimaryDark">#02E402</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorBlue">#5884FB</color>
     <color name="colorWhite">#fff</color>
     <color name="colorTabBackground">#061335</color>
     <color name="dividerColor">#BE81F7</color>
-    <color name="goldenColor">#ACFA58</color>
+    <color name="greenColor">#09CF09</color>
     <color name="colorEditTextHint">#747070</color>
+    <color name="searchBarNavIconTintColor">#1FD11F</color>
 </resources>

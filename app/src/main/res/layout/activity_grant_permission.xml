@@ -26,7 +26,7 @@
              android:layout_width="fill_parent"
              android:layout_height="2dp"
              android:layout_weight="1"
-             android:background="@color/goldenColor">
+             android:background="@color/greenColor">
          </View>
 
          <TextView
@@ -46,7 +46,7 @@
              android:layout_width="fill_parent"
              android:layout_height="2dp"
              android:layout_marginRight="5dp"
-             android:background="@color/goldenColor"
+             android:background="@color/greenColor"
              >
 
          </View>
@@ -59,7 +59,7 @@
              android:padding="10dp"
              android:orientation="vertical"
              android:layout_marginTop="10dp"
-             android:background="@drawable/details_border"
+             android:background="@drawable/topless_details_border"
              android:gravity="center_horizontal"
              >
 

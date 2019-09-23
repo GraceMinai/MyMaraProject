@@ -18,6 +18,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -104,7 +105,7 @@ public class MainActivity extends AppCompatActivity
         //initializing the views
         materialSearchBar = (MaterialSearchBar) findViewById(R.id.placesSearchBar);
         btnLocateCenter = (Button)findViewById(R.id.btnLocateCenter);
-        rippleBg = (RippleBackground)findViewById(R.id.rippleBg);
+        //rippleBg = (RippleBackground)findViewById(R.id.rippleBg);
         btnFindExpert = findViewById(R.id.btnContactExpert);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_id);
@@ -253,7 +254,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                startActivity(new Intent(MainActivity.this, GetHelp.class));
+                startActivity(new Intent(MainActivity.this, ConnectWithExpert.class));
             }
         });
 
@@ -269,8 +270,8 @@ public class MainActivity extends AppCompatActivity
         mMap.addMarker(new MarkerOptions()
             .position(ksmCountyReferalHsp)
             .title("Kisumu County Referral Hospital")
-            .snippet("Ward 8")
-            .snippet("Contact : 0710286818"));
+            .snippet("Contact : 0710286818")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
 
         //Adding a marker at Blue Cross Railways branch
@@ -280,14 +281,15 @@ public class MainActivity extends AppCompatActivity
              .position(blueCrossRailwaysBranch)
              .title("Blue Cross Railways Branch")
              .snippet("Contact : 0792965139")
-             .snippet("website - www.bluecrosskisumu.org"));
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
         //Adding marker at Lutheran Special School
 
         LatLng lutheraSpecialSchool = new LatLng(-0.106248, 34.768604);
         mMap.addMarker(new MarkerOptions()
             .position(lutheraSpecialSchool)
-            .title("Lutheran Special School"));
+            .title("Lutheran Special School")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
         //Adding a marker at JOOORTH
 
@@ -296,11 +298,11 @@ public class MainActivity extends AppCompatActivity
             .position(joorth)
             .title("Jaramogi Oginga Odinga Teaching & Referal Hospital")
             .snippet("Contact : 0736662522")
-            .snippet("website - www.jaramogireferral.go.ke"));
+            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
         //Including the ripple background on the current user location
         LatLng currentMarkerPosition = mMap.getCameraPosition().target;
-        rippleBg.startRippleAnimation();
+        //rippleBg.startRippleAnimation();
 
     }
 
@@ -316,21 +318,24 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_settings)
+        {
             return true;
         }
 
@@ -346,11 +351,7 @@ public class MainActivity extends AppCompatActivity
 
          if (id == R.id.nav_contactExpert)
          {
-            startActivity(new Intent(MainActivity.this, GetHelp.class));
-
-         } else if (id == R.id.nav_PostedIssues)
-         {
-            startActivity(new Intent(MainActivity.this, RetriveUserInfomation.class));
+            startActivity(new Intent(MainActivity.this, ConnectWithExpert.class));
 
          }
          else if (id == R.id.nav_share)
@@ -465,6 +466,8 @@ public class MainActivity extends AppCompatActivity
 
 
 
+
+
     }
     /**
      * Checking for the results
@@ -510,6 +513,9 @@ public class MainActivity extends AppCompatActivity
                                 //Moving the camera to the device location
                                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(userLastKnownLocation.getLatitude(),
                                         userLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+
+
+
 
 
                             }
