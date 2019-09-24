@@ -7,8 +7,8 @@
 
         <item
             android:id="@+id/nav_contactExpert"
-            android:icon="@drawable/ic_contact_expert"
-            android:title="Find Exert" />
+            android:icon="@drawable/ic_person"
+            android:title="Find Expert Help" />
 
         <item
             android:id="@+id/nav_forum"
@@ -23,7 +23,7 @@
             android:title="Invite friends" />
         <item
             android:id="@+id/nav_about"
-            android:icon="@drawable/ic_menu_send"
+            android:icon="@drawable/ic_about"
             android:title="About" />
 
 

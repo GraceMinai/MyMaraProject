@@ -271,7 +271,7 @@ public class MainActivity extends AppCompatActivity
             .position(ksmCountyReferalHsp)
             .title("Kisumu County Referral Hospital")
             .snippet("Contact : 0710286818")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
 
         //Adding a marker at Blue Cross Railways branch
@@ -281,7 +281,7 @@ public class MainActivity extends AppCompatActivity
              .position(blueCrossRailwaysBranch)
              .title("Blue Cross Railways Branch")
              .snippet("Contact : 0792965139")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
         //Adding marker at Lutheran Special School
 
@@ -289,7 +289,7 @@ public class MainActivity extends AppCompatActivity
         mMap.addMarker(new MarkerOptions()
             .position(lutheraSpecialSchool)
             .title("Lutheran Special School")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
         //Adding a marker at JOOORTH
 
@@ -372,6 +372,7 @@ public class MainActivity extends AppCompatActivity
          else if (id == R.id.nav_forum)
          {
 
+
          }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -410,7 +411,7 @@ public class MainActivity extends AppCompatActivity
         LocationRequest locationRequest = LocationRequest.create();
         locationRequest.setInterval(5000);
         locationRequest.setFastestInterval(1000);
-        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
 
 
         //requesting the user to enable gps
@@ -449,8 +450,6 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         });
-        //Adding Markers to the Map
-
 
         //Setting a listener to perform an action when the marker is clicked
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener()
@@ -504,9 +503,9 @@ public class MainActivity extends AppCompatActivity
                         {
                             userLastKnownLocation = task.getResult();
                             /**
-                             * The task to get the device location must be successful but
+                             * The task to get the device location might be successful but
                              * may be the location is null
-                             * the following code will hndlre this condition
+                             * the following code will handle this condition
                              */
                             if (userLastKnownLocation != null)
                             {
@@ -525,7 +524,7 @@ public class MainActivity extends AppCompatActivity
                                 final LocationRequest locationRequest = LocationRequest.create();
                                 locationRequest.setInterval(5000);
                                 locationRequest.setFastestInterval(1000);
-                                locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+                                locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
                                 locationCallback = new LocationCallback()
                                 {
                                     @Override

@@ -66,11 +66,12 @@
              <TextView
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
-                 android:text="iProtect need permission to access device location in order to provide required service. Please allow permission."
+                 android:text="Mara need permission to access device location in order to provide required service. Please allow permission."
                  android:gravity="center_horizontal"
                  android:layout_marginTop="100dp"
-                 android:textSize="20dp"
-                 android:textColor="@color/colorAccent">
+                 android:textSize="18dp"
+                 android:textColor="@color/colorAccent"
+                 android:layout_marginBottom="100dp">
 
              </TextView>
 
@@ -93,6 +94,7 @@
         android:textAllCaps="false"
         android:textSize="16dp"
         android:textColor="#fff"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"/>
 
 </RelativeLayout>

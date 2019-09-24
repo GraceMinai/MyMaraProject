@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:115577369266:android:f8401df4be6de970",
         "android_client_info": {
-          "package_name": "www.charles.iprotect.com"
+          "package_name": "www.mara.android.com"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "115577369266-8icocbqbuechmi88mgpa5op23ra7q0dt.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "www.charles.iprotect.com",
+            "package_name": "www.mara.android.com",
             "certificate_hash": "1c57da75e4a283399596db73ee27b2935856835c"
           }
         },

@@ -38,7 +38,7 @@ public class ConnectWithExpert extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_get_help);
+        setContentView(R.layout.activity_connect_with_expert);
         Toolbar contactProfToolbar = findViewById(R.id.contactProf_toolbar);
 
         setSupportActionBar(contactProfToolbar);
