@@ -10,79 +10,7 @@
     tools:showIn="@layout/activity_main"
     android:theme="@style/AppTheme.NoActionBar">
 
-    <com.mancj.materialsearchbar.MaterialSearchBar
-        android:id="@+id/placesSearchBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/MaterialSearchBarLight"
-        app:mt_speechMode="false"
-        app:mt_hint="Search nearby rehub center"
-        app:mt_maxSuggestionsCount="10"
-        app:mt_navIconEnabled="true"
-        android:layout_margin="14dp"
-        app:mt_placeholder="Search nearest rehub center"
-        android:elevation="5dp"
-        android:outlineProvider="bounds"
-        />
 
-    <fragment
-        android:id="@+id/map_id"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:name="com.google.android.gms.maps.SupportMapFragment"/>
-
-    <!--<com.skyfishjy.library.RippleBackground
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/rippleBg"
-        app:rb_color="#F2EFFB"
-        app:rb_radius="20dp"
-        app:rb_rippleAmount="3"
-        app:rb_duration="3000"
-        app:rb_scale="6"
-        android:layout_centerInParent="true">
-       <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:src="@drawable/ic_placeholdermarker"
-            android:translationY="-18dp">
-        </ImageView>
-    </com.skyfishjy.library.RippleBackground> -->
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="16dp"
-        android:gravity="center">
-
-        <Button
-            android:id="@+id/btnLocateCenter"
-            android:layout_width="135dp"
-            android:layout_height="wrap_content"
-            android:text=" Find Nearby Rehub"
-            android:background="@drawable/buttons_boder"
-            android:textColor="#fff"
-            android:textAllCaps="false"
-            android:textAlignment="center"/>
-
-        <Button
-
-            android:id="@+id/btnContactExpert"
-            android:layout_width="135dp"
-            android:layout_height="wrap_content"
-            android:text="Find Expert Help"
-            android:background="@drawable/buttons_boder"
-            android:textColor="#fff"
-            android:textAllCaps="false"
-            android:layout_marginStart="6dp"
-            android:textAlignment="center"/>
-
-
-    </LinearLayout>
 
 
 

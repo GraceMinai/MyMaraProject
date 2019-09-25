@@ -1,6 +1,12 @@
 package www.mara.android.com;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.google.firebase.database.DatabaseReference;
@@ -125,6 +131,8 @@ public class ConnectWithExpert extends AppCompatActivity
              */
 
 
+
+
               mProgressDialog.setTitle("Sending information");
               mProgressDialog.setMessage("Please wait.Your information is being sent to health experts");
 
@@ -153,7 +161,7 @@ public class ConnectWithExpert extends AppCompatActivity
 
 
             //Informing the user that the information has been uploaded
-            Toast.makeText(this, "Sent successfully", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Sent successfully. A health expert will contact you shortly", Toast.LENGTH_LONG).show();
 
 
         }
@@ -167,6 +175,60 @@ public class ConnectWithExpert extends AppCompatActivity
                     Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    //This method is for hiding the keyboard when the activity is launched
+
+
+
+
+
+    //Checking for the connection
+
+    public boolean isConnected(Context context)
+    {
+
+        ConnectivityManager  connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+        if (networkInfo != null && networkInfo.isConnectedOrConnecting())
+        {
+            android.net.NetworkInfo wifi = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+            android.net.NetworkInfo mobileData = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
+            if ((mobileData != null && mobileData.isConnectedOrConnecting()) || wifi != null && wifi.isConnectedOrConnecting())
+            {
+                return true;
+            }
+            else {
+                return false;
+            }
+
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    //Displaying a dialog box for internet connection
+
+    public AlertDialog.Builder buildDialog(Context context)
+    {
+        final  AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("No internet connection");
+        builder.setMessage("You need to have Mobile data or Wifi to connect with the health expert.");
+
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                finish();
+            }
+        });
+
+        return builder;
     }
 
 }

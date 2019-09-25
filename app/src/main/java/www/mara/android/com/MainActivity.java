@@ -1,7 +1,11 @@
 package www.mara.android.com;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.os.Bundle;
 
@@ -80,6 +84,8 @@ public class MainActivity extends AppCompatActivity
     private MaterialSearchBar materialSearchBar;
     private Button btnLocateCenter, btnFindExpert;
     private View mapView;
+    private Dialog aboutPopUpDialog;
+    private  Button aboutPopUpButton;
 
 
     private final float DEFAULT_ZOOM = 15;
@@ -107,6 +113,10 @@ public class MainActivity extends AppCompatActivity
         btnLocateCenter = (Button)findViewById(R.id.btnLocateCenter);
         //rippleBg = (RippleBackground)findViewById(R.id.rippleBg);
         btnFindExpert = findViewById(R.id.btnContactExpert);
+
+        //initializing the aboutPopUpDialog
+        aboutPopUpDialog = new Dialog(this);
+
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_id);
         mapFragment.getMapAsync(this);
@@ -300,6 +310,29 @@ public class MainActivity extends AppCompatActivity
             .snippet("Contact : 0736662522")
             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
+
+        //Adding a marker at International Felloship Kenya
+        LatLng interfelk = new LatLng(-0.1068408,34.7612681);
+        mMap.addMarker(new MarkerOptions()
+            .position(interfelk)
+            .title("International Felloship Kenya")
+            .snippet("Contact : 0572022210")
+            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+
+        //Adding a marker at Dove Rehabilitation Center
+
+        LatLng doveRehabilitationCenter = new LatLng(-0.083407, 34.766203);
+        mMap.addMarker(new MarkerOptions()
+            .position(doveRehabilitationCenter)
+            .title("Dove Rehabilitation Center")
+            .snippet("Contact : 0720668417")
+            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+
+
+
+
+
+
         //Including the ripple background on the current user location
         LatLng currentMarkerPosition = mMap.getCameraPosition().target;
         //rippleBg.startRippleAnimation();
@@ -356,17 +389,8 @@ public class MainActivity extends AppCompatActivity
          }
          else if (id == R.id.nav_share)
          {
-             //Sharing the app
-
-             Intent shareIntent = new Intent(Intent.ACTION_SEND);
-             shareIntent.setAction("text/plain");
-             String shareLink = "https://download_charles.iprotect.com;/";
-             String shareSubject = "Try this awesome app";
-
-             shareIntent.putExtra(Intent.EXTRA_TEXT, shareLink);
-             shareIntent.putExtra(Intent.EXTRA_SUBJECT, shareSubject);
-
-             startActivity(Intent.createChooser(shareIntent,"Share through"));
+           //Sharing the app
+             shareMara();
 
          }
          else if (id == R.id.nav_forum)
@@ -374,11 +398,60 @@ public class MainActivity extends AppCompatActivity
 
 
          }
+         else if (id == R.id.nav_about)
+         {
+             //Diaplaying about dialog
+             aboutMaraDialog();
+         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    //Method for sharing the app
+    private boolean shareMara()
+    {
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        String shareBodyText = "Hello, this mobile app is awesome, it promotes mental well being and help connect people with mental problems to professional heath experts"
+                ;
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject here");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBodyText);
+        startActivity(Intent.createChooser(sharingIntent, "Sharing Option"));
+        return true;
+    }
+
+    //Method for the pop up of about Mara
+
+    private  void aboutMaraDialog()
+    {
+        aboutPopUpDialog.setContentView(R.layout.about_mara_popup);
+        aboutPopUpDialog.getWindow().setBackgroundDrawableResource(R.color.greenColor);
+        //showing the popup
+        aboutPopUpDialog.show();
+
+        //setting a function to the popup button
+
+        aboutPopUpButton = (Button) aboutPopUpDialog.findViewById(R.id.about_popUp_button_id);
+        aboutPopUpButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                //Sending the user back to the map
+                Intent aboutIntent = new Intent(MainActivity.this, MainActivity.class);
+                aboutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(aboutIntent);
+            }
+        });
+    }
+
+
+
+
+
+
 
     /**
      * This method will be called when the map has been loaded and is ready for use
@@ -509,13 +582,17 @@ public class MainActivity extends AppCompatActivity
                              */
                             if (userLastKnownLocation != null)
                             {
+                                //Getting the current user location
+                                LatLng currentUserLocation = new LatLng(userLastKnownLocation.getLatitude(), userLastKnownLocation.getLongitude());
+
+                                //Adding a marker to the current user location
+                                MarkerOptions markerOptions = new MarkerOptions();
+                                markerOptions.position(currentUserLocation);
+                                markerOptions.title("Me");
+                                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                                mMap.addMarker(markerOptions);
                                 //Moving the camera to the device location
-                                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(userLastKnownLocation.getLatitude(),
-                                        userLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
-
-
-
-
+                               mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentUserLocation, DEFAULT_ZOOM));
 
                             }
                             else
@@ -538,8 +615,21 @@ public class MainActivity extends AppCompatActivity
                                         else
                                         {
                                             userLastKnownLocation = locationResult.getLastLocation();
-                                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(userLastKnownLocation.getLatitude(),
-                                                    userLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+
+                                           /** LatLng userLocation = new LatLng(userLastKnownLocation.getLatitude(), userLastKnownLocation.getLongitude());
+
+                                            //Adding a marker to the current user location
+                                            MarkerOptions markerOptions = new MarkerOptions();
+                                            markerOptions.position(userLocation);
+                                            markerOptions.title("Me");
+                                            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                                            mMap.addMarker(markerOptions);
+                                            //Moving the camera to the device location
+                                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, DEFAULT_ZOOM));
+
+                                            ***/
+
+
 
                                             //Removing the location update fron the callback
                                             mFusedLocationProviderClient.removeLocationUpdates(locationCallback);

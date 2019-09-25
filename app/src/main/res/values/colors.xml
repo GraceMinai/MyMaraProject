@@ -10,4 +10,5 @@
     <color name="greenColor">#09CF09</color>
     <color name="colorEditTextHint">#747070</color>
     <color name="searchBarNavIconTintColor">#1FD11F</color>
+    <color name="boderColor">#DBA901</color>
 </resources>

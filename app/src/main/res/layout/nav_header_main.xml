@@ -31,7 +31,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="User email address"
-        android:textColor="#fff"/>
+        android:textColor="#fff"/
         -->
+
+   <TextView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:textStyle="bold"
+       android:textColor="#fff"
+       android:textSize="25dp"
+       android:text="MARA">
+
+   </TextView>
+
 
 </LinearLayout>
