@@ -439,10 +439,13 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
+
+
                 //Sending the user back to the map
                 Intent aboutIntent = new Intent(MainActivity.this, MainActivity.class);
                 aboutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(aboutIntent);
+
             }
         });
     }
@@ -461,7 +464,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onMapReady(GoogleMap googleMap)
     {
-        //custing the map inside the google map variable
+        //casting the map inside the google map variable
         mMap = googleMap;
         //Enabling the map to read the user location
         mMap.setMyLocationEnabled(true);
@@ -531,6 +534,7 @@ public class MainActivity extends AppCompatActivity
             public boolean onMarkerClick(Marker marker)
             {
 
+                marker.remove();
 
                 return false;
             }
