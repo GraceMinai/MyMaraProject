@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="www.mara.android.com.WelcomeActivity"
+        <activity android:name="www.mara.android.com.ActivitiesPackage.WelcomeActivity"
             android:theme="@style/AppTheme">
 
 
@@ -21,17 +21,17 @@
             </intent-filter>
 
         </activity>
-        <activity android:name="www.mara.android.com.RetriveUserInfomation" />
+        <activity android:name="www.mara.android.com.ActivitiesPackage.RetriveUserInfomation" />
         <activity
-            android:name="www.mara.android.com.ConnectWithExpert"
+            android:name="www.mara.android.com.ActivitiesPackage.ConnectWithExpert"
             android:label="@string/title_activity_get_help"
             android:theme="@style/AppTheme" />
-        <activity android:name="www.mara.android.com.GrantPermission">
+        <activity android:name="www.mara.android.com.ActivitiesPackage.GrantPermission">
 
         </activity>
-        <activity android:name="www.mara.android.com.UserPhotoActivity" />
+        <activity android:name="www.mara.android.com.ActivitiesPackage.UserProfileActivity" />
         <activity
-            android:name="www.mara.android.com.MainActivity"
+            android:name="www.mara.android.com.ActivitiesPackage.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 

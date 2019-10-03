@@ -1,4 +1,4 @@
-package www.mara.android.com;
+package www.mara.android.com.ActivitiesPackage;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,8 +9,9 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import www.mara.android.com.R;
 
-public class UserPhotoActivity extends AppCompatActivity {
+public class UserProfileActivity extends AppCompatActivity {
 
     CircleImageView userProfileImage;
     Button btn_camera;

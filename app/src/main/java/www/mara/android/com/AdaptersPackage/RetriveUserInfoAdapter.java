@@ -1,4 +1,4 @@
-package www.mara.android.com;
+package www.mara.android.com.AdaptersPackage;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -10,6 +10,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import java.util.List;
+
+import www.mara.android.com.R;
+import www.mara.android.com.UploadClassesPackage.UserInformation;
 
 public class RetriveUserInfoAdapter extends ArrayAdapter<UserInformation>
 {

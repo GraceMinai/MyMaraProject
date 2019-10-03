@@ -1,4 +1,4 @@
-package www.mara.android.com;
+package www.mara.android.com.ActivitiesPackage;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Build;
 import android.os.Bundle;
 
 import com.google.firebase.database.DatabaseReference;
@@ -20,6 +19,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import www.mara.android.com.R;
+import www.mara.android.com.UploadClassesPackage.UserInformation;
 
 public class ConnectWithExpert extends AppCompatActivity
 {

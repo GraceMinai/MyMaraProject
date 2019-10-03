@@ -1,4 +1,4 @@
-package www.mara.android.com;
+package www.mara.android.com.ActivitiesPackage;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +16,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import www.mara.android.com.R;
+import www.mara.android.com.AdaptersPackage.RetriveUserInfoAdapter;
+import www.mara.android.com.UploadClassesPackage.UserInformation;
 
 public class RetriveUserInfomation extends AppCompatActivity
 {

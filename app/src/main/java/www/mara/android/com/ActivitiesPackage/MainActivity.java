@@ -1,11 +1,12 @@
-package www.mara.android.com;
+package www.mara.android.com.ActivitiesPackage;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 
@@ -22,6 +23,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -44,7 +46,9 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.GravityCompat;
 
 import android.view.MenuItem;
@@ -65,6 +69,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import www.mara.android.com.R;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback
@@ -89,6 +95,7 @@ public class MainActivity extends AppCompatActivity
 
 
     private final float DEFAULT_ZOOM = 15;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -281,7 +288,7 @@ public class MainActivity extends AppCompatActivity
             .position(ksmCountyReferalHsp)
             .title("Kisumu County Referral Hospital")
             .snippet("Contact : 0710286818")
-            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+            .icon(getBitmapDescriptor(R.drawable.ic_greenmarker)));
 
 
         //Adding a marker at Blue Cross Railways branch
@@ -291,7 +298,7 @@ public class MainActivity extends AppCompatActivity
              .position(blueCrossRailwaysBranch)
              .title("Blue Cross Railways Branch")
              .snippet("Contact : 0792965139")
-             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+             .icon(getBitmapDescriptor(R.drawable.ic_greenmarker)));
 
         //Adding marker at Lutheran Special School
 
@@ -299,7 +306,7 @@ public class MainActivity extends AppCompatActivity
         mMap.addMarker(new MarkerOptions()
             .position(lutheraSpecialSchool)
             .title("Lutheran Special School")
-            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+            .icon(getBitmapDescriptor(R.drawable.ic_greenmarker)));
 
         //Adding a marker at JOOORTH
 
@@ -308,7 +315,7 @@ public class MainActivity extends AppCompatActivity
             .position(joorth)
             .title("Jaramogi Oginga Odinga Teaching & Referal Hospital")
             .snippet("Contact : 0736662522")
-            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+            .icon(getBitmapDescriptor(R.drawable.ic_greenmarker)));
 
 
         //Adding a marker at International Felloship Kenya
@@ -317,7 +324,7 @@ public class MainActivity extends AppCompatActivity
             .position(interfelk)
             .title("International Felloship Kenya")
             .snippet("Contact : 0572022210")
-            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+            .icon(getBitmapDescriptor(R.drawable.ic_greenmarker)));
 
         //Adding a marker at Dove Rehabilitation Center
 
@@ -326,7 +333,7 @@ public class MainActivity extends AppCompatActivity
             .position(doveRehabilitationCenter)
             .title("Dove Rehabilitation Center")
             .snippet("Contact : 0720668417")
-            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+            .icon(getBitmapDescriptor(R.drawable.ic_greenmarker)));
 
 
 
@@ -338,6 +345,21 @@ public class MainActivity extends AppCompatActivity
         //rippleBg.startRippleAnimation();
 
     }
+
+
+    //Method for converting vector assets into Bitmap for use as marker
+    private BitmapDescriptor getBitmapDescriptor(@DrawableRes int resId)
+    {
+        Drawable vectorDrawable = ResourcesCompat.getDrawable(getResources(), resId, null);
+        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(),
+                                            vectorDrawable.getIntrinsicHeight(),
+                                             Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        vectorDrawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        vectorDrawable.draw(canvas);
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
+    }
+
 
 
     @Override
@@ -534,7 +556,6 @@ public class MainActivity extends AppCompatActivity
             public boolean onMarkerClick(Marker marker)
             {
 
-                marker.remove();
 
                 return false;
             }
@@ -593,7 +614,7 @@ public class MainActivity extends AppCompatActivity
                                 MarkerOptions markerOptions = new MarkerOptions();
                                 markerOptions.position(currentUserLocation);
                                 markerOptions.title("Me");
-                                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                                markerOptions.icon(getBitmapDescriptor(R.drawable.ic_userlocationicon));
                                 mMap.addMarker(markerOptions);
                                 //Moving the camera to the device location
                                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentUserLocation, DEFAULT_ZOOM));

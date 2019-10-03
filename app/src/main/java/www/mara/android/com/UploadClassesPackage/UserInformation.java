@@ -1,4 +1,4 @@
-package www.mara.android.com;
+package www.mara.android.com.UploadClassesPackage;
 
 public class UserInformation
 {

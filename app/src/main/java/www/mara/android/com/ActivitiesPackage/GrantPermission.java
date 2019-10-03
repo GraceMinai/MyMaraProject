@@ -1,4 +1,4 @@
-package www.mara.android.com;
+package www.mara.android.com.ActivitiesPackage;
 
 import android.Manifest;
 import android.content.DialogInterface;
@@ -21,6 +21,8 @@ import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
+
+import www.mara.android.com.R;
 
 
 public class GrantPermission extends AppCompatActivity
