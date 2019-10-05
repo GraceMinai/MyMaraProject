@@ -430,12 +430,14 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+
+
     //Method for sharing the app
     private boolean shareMara()
     {
         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");
-        String shareBodyText = "Hello, this mobile app is awesome, it promotes mental well being by connecting people to professional health experts:" + shareDynamicLink()
+        String shareBodyText = "Hello, this mobile app is awesome, it promotes well-being by providing safe spaces and professional help to people suffering from mental health:" + shareDynamicLink()
                 ;
         sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject here");
         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBodyText);
