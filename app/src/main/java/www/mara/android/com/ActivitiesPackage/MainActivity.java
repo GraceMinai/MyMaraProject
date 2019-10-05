@@ -418,7 +418,6 @@ public class MainActivity extends AppCompatActivity
          else if (id == R.id.nav_forum)
          {
 
-
          }
          else if (id == R.id.nav_about)
          {
@@ -436,12 +435,19 @@ public class MainActivity extends AppCompatActivity
     {
         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");
-        String shareBodyText = "Hello, this mobile app is awesome, it promotes mental well being and help connect people with mental problems to professional heath experts"
+        String shareBodyText = "Hello, this mobile app is awesome, it promotes mental well being by connecting people to professional health experts:" + shareDynamicLink()
                 ;
         sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject here");
         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBodyText);
         startActivity(Intent.createChooser(sharingIntent, "Sharing Option"));
         return true;
+    }
+
+    //Method for creating dynamic link
+
+    private String shareDynamicLink()
+    {
+        return "https://mymara.page.link/mara-7SuK";
     }
 
     //Method for the pop up of about Mara

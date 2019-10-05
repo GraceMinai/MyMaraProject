@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "115577369266",
-    "firebase_url": "https://iprotect-cb103.firebaseio.com",
-    "project_id": "iprotect-cb103",
-    "storage_bucket": "iprotect-cb103.appspot.com"
+    "project_number": "550960764795",
+    "firebase_url": "https://mara-3f2db.firebaseio.com",
+    "project_id": "mara-3f2db",
+    "storage_bucket": "mara-3f2db.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:115577369266:android:f8401df4be6de970",
+        "mobilesdk_app_id": "1:550960764795:android:99a80c8cfb9e5fdbd10fde",
         "android_client_info": {
           "package_name": "www.mara.android.com"
         }
       },
       "oauth_client": [
         {
-          "client_id": "115577369266-8icocbqbuechmi88mgpa5op23ra7q0dt.apps.googleusercontent.com",
+          "client_id": "550960764795-mhq3lobrs62kdkg137q2m4lmjsq6rtlv.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "www.mara.android.com",
@@ -23,20 +23,20 @@
           }
         },
         {
-          "client_id": "115577369266-ldo4lq5h94tcupcd6b6e3cm1rkc4nliv.apps.googleusercontent.com",
+          "client_id": "550960764795-knokoo50vvoa47p1ald7dk1p6dql2sq8.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCwMXA1Hv516v2kwLiNuLj_fHYcgSMuLM4"
+          "current_key": "AIzaSyCGXtpt0d7VpankKJ8x7heNaY8DVJqaWP0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "115577369266-ldo4lq5h94tcupcd6b6e3cm1rkc4nliv.apps.googleusercontent.com",
+              "client_id": "550960764795-knokoo50vvoa47p1ald7dk1p6dql2sq8.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
