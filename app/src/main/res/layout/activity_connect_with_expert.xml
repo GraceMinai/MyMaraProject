@@ -414,7 +414,7 @@
                             android:paddingBottom="2dp"
                             android:gravity="center"
                             android:textSize="14dp"
-                            android:hint="Briefly explian how you'd like to be assisted"
+                            android:hint="Briefly explain how you'd like to be assisted"
                             android:textColor="#000"
                             android:layout_marginTop="5dp"
                             android:background="@drawable/edit_texts_boder"
