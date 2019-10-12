@@ -96,6 +96,9 @@ public class MainActivity extends AppCompatActivity
 
     private final float DEFAULT_ZOOM = 15;
 
+    private long backPressedTime;
+    private Toast backPressedToast;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -363,13 +366,41 @@ public class MainActivity extends AppCompatActivity
 
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed()
+    {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
+        if (drawer.isDrawerOpen(GravityCompat.START))
+        {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
         }
+        else
+            {
+           // super.onBackPressed();
+
+                //Setting validation for the user to press back twice before exiting the app
+
+                //This condition will compare the length of time betwin the first and second click
+                if (backPressedTime + 2000 > System.currentTimeMillis())
+                {
+                    //Cancelling the toast before closing the app
+                    // backPressedToast.cancel();
+                    //closing the app
+                    super.onBackPressed();
+                    return;
+                }
+                else
+                {
+                    //Displaying a toast to request the user to click again to exit
+                    backPressedToast = Toast.makeText(getBaseContext(), "Press back again to exit", Toast.LENGTH_SHORT);
+                    backPressedToast.show();
+
+                }
+
+                backPressedTime = System.currentTimeMillis();
+        }
+
+
+
     }
 
     @Override
