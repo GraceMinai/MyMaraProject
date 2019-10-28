@@ -383,7 +383,7 @@ public class MainActivity extends AppCompatActivity
                 if (backPressedTime + 2000 > System.currentTimeMillis())
                 {
                     //Cancelling the toast before closing the app
-                    // backPressedToast.cancel();
+                     backPressedToast.cancel();
                     //closing the app
                     super.onBackPressed();
                     return;
