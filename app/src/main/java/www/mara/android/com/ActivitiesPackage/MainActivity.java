@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity
     private  Button aboutPopUpButton;
 
 
-    private final float DEFAULT_ZOOM = 15;
+    private final float DEFAULT_ZOOM = 13;
 
     private long backPressedTime;
     private Toast backPressedToast;
@@ -117,6 +117,14 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();**/
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        //Setting bounderies to restrict the map to Kisumu county
+       /** if (mMap != null)
+        {
+           double bottomBoundery =
+
+        }**/
 
         //initializing the views
         materialSearchBar = (MaterialSearchBar) findViewById(R.id.placesSearchBar);
@@ -680,18 +688,18 @@ public class MainActivity extends AppCompatActivity
                                         {
                                             userLastKnownLocation = locationResult.getLastLocation();
 
-                                           /** LatLng userLocation = new LatLng(userLastKnownLocation.getLatitude(), userLastKnownLocation.getLongitude());
+                                            LatLng userLocation = new LatLng(userLastKnownLocation.getLatitude(), userLastKnownLocation.getLongitude());
 
                                             //Adding a marker to the current user location
                                             MarkerOptions markerOptions = new MarkerOptions();
                                             markerOptions.position(userLocation);
                                             markerOptions.title("Me");
-                                            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                                            markerOptions.icon(getBitmapDescriptor(R.drawable.ic_userlocationicon));
                                             mMap.addMarker(markerOptions);
                                             //Moving the camera to the device location
                                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, DEFAULT_ZOOM));
 
-                                            ***/
+
 
 
 
