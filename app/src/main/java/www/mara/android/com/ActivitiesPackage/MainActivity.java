@@ -2,6 +2,7 @@ package www.mara.android.com.ActivitiesPackage;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.graphics.Bitmap;
@@ -48,6 +49,7 @@ import android.view.View;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.GravityCompat;
 
@@ -603,9 +605,22 @@ public class MainActivity extends AppCompatActivity
             public boolean onMarkerClick(Marker marker)
             {
 
+                AlertDialog.Builder directionDialog = new AlertDialog.Builder(MainActivity.this);
+                directionDialog.setTitle("Rehub Center");
+                directionDialog.setMessage("Do you want to get direction to this center?");
+                directionDialog.setNegativeButton("NO", null);
+                directionDialog.setPositiveButton("YES", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                              showDirection();
+                    }
+                });
 
                 return false;
             }
+
         });
 
 
@@ -613,6 +628,14 @@ public class MainActivity extends AppCompatActivity
 
 
     }
+
+    //Method for showing direction from the user Location to the Centers
+    private void showDirection()
+    {
+
+
+    }
+
     /**
      * Checking for the results
      * if the user accepted the request to turn on the location settings
@@ -643,7 +666,7 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void onComplete(@NonNull Task<Location> task)
                     {
-                        //if the task to get the lastKnowLocation is successfull then we get the device location
+                        //if the task to get the lastKnowLocation is successful then we get the device location
                         if (task.isSuccessful())
                         {
                             userLastKnownLocation = task.getResult();
@@ -677,7 +700,8 @@ public class MainActivity extends AppCompatActivity
                                 locationCallback = new LocationCallback()
                                 {
                                     @Override
-                                    public void onLocationResult(LocationResult locationResult) {
+                                    public void onLocationResult(LocationResult locationResult)
+                                    {
                                         super.onLocationResult(locationResult);
                                         //If the location result is not null then well update the userLastKnownLocation
                                         if (locationResult == null)
@@ -703,7 +727,7 @@ public class MainActivity extends AppCompatActivity
 
 
 
-                                            //Removing the location update fron the callback
+                                            //Removing the location update from the callback
                                             mFusedLocationProviderClient.removeLocationUpdates(locationCallback);
                                         }
                                     }

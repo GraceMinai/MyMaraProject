@@ -162,7 +162,7 @@
                     android:layout_height="45dp"
                     android:textSize="17dp"
                     android:layout_gravity="center"
-                    android:hint="Age"
+                    android:hint="Date Of Birth"
                     android:textColor="#000"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/edit_texts_boder"

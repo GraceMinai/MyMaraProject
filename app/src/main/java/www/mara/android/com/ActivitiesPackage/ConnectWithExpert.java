@@ -1,6 +1,7 @@
 package www.mara.android.com.ActivitiesPackage;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -17,8 +18,13 @@ import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 import www.mara.android.com.R;
 import www.mara.android.com.UploadClassesPackage.UserInformation;
@@ -26,7 +32,7 @@ import www.mara.android.com.UploadClassesPackage.UserInformation;
 public class ConnectWithExpert extends AppCompatActivity
 {
 
-    private EditText userFirstName, userSecondName, userSurname, userAge,
+    private EditText userFirstName, userSecondName, userSurname, userDateOfBirth,
             userEmailAdress, userPhoneNumber,userPlaceOfResidence,
             userIssue,usersNeed;
     private ProgressDialog mProgressDialog;
@@ -38,6 +44,8 @@ public class ConnectWithExpert extends AppCompatActivity
     DatabaseReference mDatabaseRef;
 
     private Class<UserInformation> UserIssuesUploadClass;
+
+    private DatePickerDialog.OnDateSetListener userDatesetListener;
 
 
 
@@ -75,7 +83,7 @@ public class ConnectWithExpert extends AppCompatActivity
         userPlaceOfResidence = findViewById(R.id.usersPlaceOfRecidence);
         userIssue = findViewById(R.id.userIssue);
         usersNeed = findViewById(R.id.usersNeed);
-        userAge = findViewById(R.id.userAge);
+        userDateOfBirth = findViewById(R.id.userAge);
 
 
         //Creating an instance to the databaseRef
@@ -94,9 +102,52 @@ public class ConnectWithExpert extends AppCompatActivity
            }
        });
 
+        //Showing the date picker
+        userDateOfBirth.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Calendar calendar = Calendar.getInstance();
+                //Getting the users year of Birth
+                int year = calendar.get(Calendar.YEAR);
+                //Getting the users Month of Birth
+                int month = calendar.get(Calendar.MONTH);
+                //Getting the users Day of birth
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+
+                //Creating a dialog for the date picker
+                //DatePickerDialog datePickerDialog = new
+
+            }
+        });
+
+        //Initializing onDateSetListener to the object
+        userDatesetListener = new DatePickerDialog.OnDateSetListener()
+        {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int day)
+            {
+                final Calendar calendar = Calendar.getInstance();
+                calendar.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.getDefault());
+                calendar.set(Calendar.YEAR,year);
+                calendar.set(Calendar.MONTH,month);
+                calendar.set(Calendar.DAY_OF_MONTH, day);
+
+                //format for displaying the user date of birth
+                String dateFormat =  new SimpleDateFormat("dd.MMM.yyyy").format(calendar.getTime());
+
+                //Showing the user's date of birth
+                userDateOfBirth.setText(dateFormat);
+
+            }
+        };
 
 
     }
+
+
 
     private void sendInfoToProffessional()
     {
@@ -110,7 +161,7 @@ public class ConnectWithExpert extends AppCompatActivity
         String mUserPlaceOfResidence = userPlaceOfResidence.getText().toString().trim();
         String mUserIssue = userIssue.getText().toString().trim();
         String mUserNeed = usersNeed.getText().toString().trim();
-        String mUserAge = userAge.getText().toString().trim();
+        String mUserDateOfBirth = userDateOfBirth.getText().toString().trim();
 
 
         /**
@@ -125,7 +176,8 @@ public class ConnectWithExpert extends AppCompatActivity
             && !TextUtils.isEmpty(mUserPlaceOfResidence)
             && !TextUtils.isEmpty(mUserIssue)
             && !TextUtils.isEmpty(mUserNeed)
-            && !TextUtils.isEmpty(mUserAge))
+            && !TextUtils.isEmpty(mUserDateOfBirth)
+        )
         {
             /**
              * If all spaces are filled correctly
@@ -144,7 +196,7 @@ public class ConnectWithExpert extends AppCompatActivity
 
             //Uploading the information to the server
             UserInformation userInformation = new UserInformation(mUserFirstName, mUserSecondName, mUserSurname, mUserEmailAdress,
-                    mUserPhoneNumber, mUserPlaceOfResidence, mUserIssue, mUserNeed, mUserAge);
+                    mUserPhoneNumber, mUserPlaceOfResidence, mUserIssue, mUserNeed, mUserDateOfBirth);
 
             mDatabaseRef.child(userKey).setValue(userInformation);
             userFirstName.setText("");
@@ -153,7 +205,7 @@ public class ConnectWithExpert extends AppCompatActivity
             userEmailAdress.setText("");
             userPhoneNumber.setText("");
             userPlaceOfResidence.setText("");
-            userAge.setText("");
+            userDateOfBirth.setText("");
             userIssue.setText("");
             usersNeed.setText("");
 
