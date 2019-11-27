@@ -5,6 +5,8 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -118,7 +120,11 @@ public class ConnectWithExpert extends AppCompatActivity
 
 
                 //Creating a dialog for the date picker
-                //DatePickerDialog datePickerDialog = new
+                DatePickerDialog datePickerDialog = new DatePickerDialog(ConnectWithExpert.this,
+                        android.R.style.Theme_Holo_Dialog_MinWidth,userDatesetListener, year, month, day);
+
+                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                datePickerDialog.show();
 
             }
         });
@@ -187,6 +193,8 @@ public class ConnectWithExpert extends AppCompatActivity
 
 
 
+
+
               mProgressDialog.setTitle("Sending information");
               mProgressDialog.setMessage("Please wait.Your information is being sent to health experts");
 
@@ -199,6 +207,8 @@ public class ConnectWithExpert extends AppCompatActivity
                     mUserPhoneNumber, mUserPlaceOfResidence, mUserIssue, mUserNeed, mUserDateOfBirth);
 
             mDatabaseRef.child(userKey).setValue(userInformation);
+
+
             userFirstName.setText("");
             userSecondName.setText("");
             userSurname.setText("");

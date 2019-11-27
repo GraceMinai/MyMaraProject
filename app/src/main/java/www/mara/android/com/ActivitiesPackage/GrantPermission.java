@@ -38,9 +38,9 @@ public class GrantPermission extends AppCompatActivity
         btnGrantPermission = (Button) findViewById(R.id.btn_grantPermission);
 
         /**
-         * Setting validations to chech if the permission has already been granted.
+         * Setting validations to check if the permission has already been granted.
          * If the permission is granted prior to the start of this activity
-         * then user will be directed to the map(GetHelpActivity)
+         * then user will be directed to the map(Main Activity)
          * if not, the user will be required to grant the permission first
          */
 

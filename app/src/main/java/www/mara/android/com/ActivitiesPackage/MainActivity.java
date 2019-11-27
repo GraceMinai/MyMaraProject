@@ -9,8 +9,10 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -23,6 +25,7 @@ import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -41,6 +44,7 @@ import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRe
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
 
+import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -65,6 +69,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.Menu;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -72,11 +77,11 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.fabric.sdk.android.Fabric;
 import www.mara.android.com.R;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback
-{
+        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, OnMarkerClickListener {
 
     //Object related to google map
     private GoogleMap mMap;
@@ -100,6 +105,11 @@ public class MainActivity extends AppCompatActivity
 
     private long backPressedTime;
     private Toast backPressedToast;
+    public String key;
+
+    private Marker rehubMarker;
+
+    private LatLng ksmCountyReferalHsp = new LatLng(-0.101537, 34.755620);
 
 
     @Override
@@ -136,6 +146,9 @@ public class MainActivity extends AppCompatActivity
 
         //initializing the aboutPopUpDialog
         aboutPopUpDialog = new Dialog(this);
+
+        //initializing onMarkerClickListener
+
 
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_id);
@@ -277,6 +290,7 @@ public class MainActivity extends AppCompatActivity
             {
                 showMarkersOnTheMap();
 
+
             }
         });
         btnFindExpert.setOnClickListener(new View.OnClickListener()
@@ -287,21 +301,78 @@ public class MainActivity extends AppCompatActivity
                 startActivity(new Intent(MainActivity.this, ConnectWithExpert.class));
             }
         });
+        /*
+        Adding a crash Button (Start)
+
+        Button crashButton = new Button(this);
+        crashButton.setText("Crash!");
+        crashButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                //forcing a crash
+                Crashlytics.getInstance().crash();
+
+
+            }
+        });
+
+        addContentView(crashButton,  new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
+
+
+        adding a crash button (End)
+         */
+
+        /*setBasicCrashKey( key);
+        enableRuntime();
+        resetKey();*/
 
 
     }
+
+    //Method for setting basic crashlytics key
+
+    public void setBasicCrashKey(String key)
+    {
+        /* start crash set keys */
+        Crashlytics.setString(key, "foo");
+        Crashlytics.setBool(key, true);
+        Crashlytics.setInt(key, 1);
+        Crashlytics.setFloat(key, 1.0f);
+        Crashlytics.setDouble(key, 1.0);
+        /*end of crash keys*/
+
+    }
+
+    public void resetKey()
+    {
+        Crashlytics.setInt("current_level", 3);
+        Crashlytics.setString("last_iu_action", "logged in");
+
+    }
+
+    public void enableRuntime()
+    {
+        Fabric.with(this, new Crashlytics());
+    }
+
+
+
+
 
     //This method is for displaying markers on the map
     private void showMarkersOnTheMap()
 
     {
-        //Adding a marker at Kisumu county referral hospital
+        /***  //Adding a marker at Kisumu county referral hospital
         LatLng ksmCountyReferalHsp = new LatLng(-0.101537, 34.755620);
         mMap.addMarker(new MarkerOptions()
             .position(ksmCountyReferalHsp)
-            .title("Kisumu County Referral Hospital")
-            .snippet("Contact : 0710286818")
-            .icon(getBitmapDescriptor(R.drawable.ic_greenmarker)));
+            //.title("Kisumu County Referral Hospital")
+            //.snippet("Contact : 0710286818")
+            .icon(getBitmapDescriptor(R.drawable.ic_greenmarker))); **/
 
 
         //Adding a marker at Blue Cross Railways branch
@@ -358,6 +429,9 @@ public class MainActivity extends AppCompatActivity
         //rippleBg.startRippleAnimation();
 
     }
+
+    //Handling marker click events
+
 
 
     //Method for converting vector assets into Bitmap for use as marker
@@ -598,30 +672,40 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+
+        mMap.setOnMarkerClickListener(this);
+
         //Setting a listener to perform an action when the marker is clicked
-        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener()
+       /***** mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener()
         {
             @Override
             public boolean onMarkerClick(Marker marker)
             {
 
-                AlertDialog.Builder directionDialog = new AlertDialog.Builder(MainActivity.this);
-                directionDialog.setTitle("Rehub Center");
-                directionDialog.setMessage("Do you want to get direction to this center?");
-                directionDialog.setNegativeButton("NO", null);
-                directionDialog.setPositiveButton("YES", new DialogInterface.OnClickListener()
+                if (marker.equals(ksmCountyReferalHsp))
                 {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
-                              showDirection();
-                    }
-                });
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setTitle("Kisumu County Referral Hospital");
+                    builder.setMessage("Do you want to get direction to this place?")
+                            .setNegativeButton("Cancel", null)
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which)
+                                {
 
+                                }
+                            })
+                            .show();
+                    return true;
+                }
                 return false;
             }
+        }); *****/
 
-        });
+       mMap.addMarker(new MarkerOptions()
+           .position(ksmCountyReferalHsp)
+           .icon(getBitmapDescriptor(R.drawable.ic_greenmarker)));
 
 
 
@@ -746,4 +830,28 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+    @Override
+    public boolean onMarkerClick(Marker marker)
+    {
+
+        if (marker.getPosition().equals(ksmCountyReferalHsp))
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle("Kisumu County Referral Hospital");
+            builder.setMessage("Do you want to get direction to this place?")
+                    .setNegativeButton("NO", null)
+                    .setPositiveButton("YES", new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which)
+                        {
+
+                        }
+                    }).show();
+            return true;
+
+
+        }
+        return false;
+    }
 }
