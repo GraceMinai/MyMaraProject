@@ -74,6 +74,12 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -108,6 +114,7 @@ public class MainActivity extends AppCompatActivity
     public String key;
 
     private Marker rehubMarker;
+    private LatLng currentUserLocation;
 
     private LatLng ksmCountyReferalHsp = new LatLng(-0.101537, 34.755620);
 
@@ -147,10 +154,8 @@ public class MainActivity extends AppCompatActivity
         //initializing the aboutPopUpDialog
         aboutPopUpDialog = new Dialog(this);
 
-        //initializing onMarkerClickListener
 
-
-
+        //implementing the map
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_id);
         mapFragment.getMapAsync(this);
         mapView = mapFragment.getView();
@@ -331,6 +336,11 @@ public class MainActivity extends AppCompatActivity
 
 
     }
+
+
+
+
+
 
     //Method for setting basic crashlytics key
 
@@ -648,6 +658,12 @@ public class MainActivity extends AppCompatActivity
             {
                 //If the gps is enabled we'll get the device location
                 getDeviceLocation();
+
+                //Creating a URL TO GET REQUEST FROM GOOGLE MAPS DIRECTION API (From the user location to the rehubCenter)
+                if (currentUserLocation != null)
+                {
+                    String directionUrl = getRequestUrl(currentUserLocation, ksmCountyReferalHsp, "driving");
+                }
             }
         });
         task.addOnFailureListener(MainActivity.this, new OnFailureListener()
@@ -671,6 +687,8 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         });
+
+
 
 
         mMap.setOnMarkerClickListener(this);
@@ -711,14 +729,78 @@ public class MainActivity extends AppCompatActivity
 
 
 
+
     }
 
-    //Method for showing direction from the user Location to the Centers
-    private void showDirection()
+    //Method for creating url to get direction from Google Maps Api
+    private String getRequestUrl(LatLng origin, LatLng destination,  String directionMode)
     {
+        //Getting the value of origin of the user
+        String str_userOrigin = "origin=" + origin.latitude + "," + origin.longitude;
+
+        //Getting the value of destination of the user
+        String str_userDestination = "destination=" + destination.latitude + "," + destination.longitude;
+
+        //User mode of travel
+        String mode = "mode=" + directionMode;
+
+        //setting sensors value
+        String sensor = "sensor=false";
+
+        //Building the full parameters for the web service
+        String parameters = str_userOrigin +"&" + str_userDestination + "&" + mode +"&" + sensor ;
+        //Building the output format
+        String output = "json";
+        //Creating the full url to request direction api
+        String fullUrl = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters + "&key=" + getString(R.string.google_api_key);
+        return fullUrl;
 
 
     }
+
+    //Method for requesting direction by downloading the json file using httpurlconnection
+    private String downloadUrl(String strUrl) throws IOException {
+        String data = "";
+        InputStream iStream = null;
+        HttpURLConnection urlConnection = null;
+        try{
+            URL url = new URL(strUrl);
+
+            // Creating an http connection to communicate with url
+            urlConnection = (HttpURLConnection) url.openConnection();
+
+            // Connecting to url
+            urlConnection.connect();
+
+            // Reading data from url
+            iStream = urlConnection.getInputStream();
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(iStream));
+
+            StringBuffer sb  = new StringBuffer();
+
+            String line = "";
+            while( ( line = br.readLine())  != null){
+                sb.append(line);
+            }
+
+            data = sb.toString();
+
+            br.close();
+
+        }catch(Exception e){
+            Log.d("Exception on download", e.toString());
+        }finally{
+            iStream.close();
+            urlConnection.disconnect();
+        }
+        return data;
+    }
+
+
+
+
+
 
     /**
      * Checking for the results
@@ -827,6 +909,8 @@ public class MainActivity extends AppCompatActivity
 
                     }
                 });
+
+
     }
 
 
