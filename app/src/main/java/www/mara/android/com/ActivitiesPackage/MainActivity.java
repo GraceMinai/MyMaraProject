@@ -84,6 +84,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.fabric.sdk.android.Fabric;
+import www.mara.android.com.DirectionHelpersPackage.FetchDownloadUrl;
 import www.mara.android.com.R;
 
 public class MainActivity extends AppCompatActivity
@@ -114,7 +115,7 @@ public class MainActivity extends AppCompatActivity
     public String key;
 
     private Marker rehubMarker;
-    private LatLng currentUserLocation;
+    private LatLng currentUserLocation = new LatLng(-0.077059, 34.771637);
 
     private LatLng ksmCountyReferalHsp = new LatLng(-0.101537, 34.755620);
 
@@ -387,12 +388,12 @@ public class MainActivity extends AppCompatActivity
 
         //Adding a marker at Blue Cross Railways branch
 
-        LatLng blueCrossRailwaysBranch = new LatLng(-0.077059, 34.771637);
+        /**LatLng blueCrossRailwaysBranch = new LatLng(-0.077059, 34.771637);
         mMap.addMarker(new MarkerOptions()
              .position(blueCrossRailwaysBranch)
              .title("Blue Cross Railways Branch")
              .snippet("Contact : 0792965139")
-             .icon(getBitmapDescriptor(R.drawable.ic_greenmarker)));
+             .icon(getBitmapDescriptor(R.drawable.ic_greenmarker))); **/
 
         //Adding marker at Lutheran Special School
 
@@ -726,7 +727,10 @@ public class MainActivity extends AppCompatActivity
            .icon(getBitmapDescriptor(R.drawable.ic_greenmarker)));
 
 
-
+        mMap.addMarker(new MarkerOptions()
+                .position(currentUserLocation)
+                .title("Me")
+                .icon(getBitmapDescriptor(R.drawable.ic_userlocationicon)));
 
 
 
@@ -757,47 +761,6 @@ public class MainActivity extends AppCompatActivity
 
 
     }
-
-    //Method for requesting direction by downloading the json file using httpurlconnection
-    private String downloadUrl(String strUrl) throws IOException {
-        String data = "";
-        InputStream iStream = null;
-        HttpURLConnection urlConnection = null;
-        try{
-            URL url = new URL(strUrl);
-
-            // Creating an http connection to communicate with url
-            urlConnection = (HttpURLConnection) url.openConnection();
-
-            // Connecting to url
-            urlConnection.connect();
-
-            // Reading data from url
-            iStream = urlConnection.getInputStream();
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(iStream));
-
-            StringBuffer sb  = new StringBuffer();
-
-            String line = "";
-            while( ( line = br.readLine())  != null){
-                sb.append(line);
-            }
-
-            data = sb.toString();
-
-            br.close();
-
-        }catch(Exception e){
-            Log.d("Exception on download", e.toString());
-        }finally{
-            iStream.close();
-            urlConnection.disconnect();
-        }
-        return data;
-    }
-
-
 
 
 
@@ -850,7 +813,7 @@ public class MainActivity extends AppCompatActivity
                                 MarkerOptions markerOptions = new MarkerOptions();
                                 markerOptions.position(currentUserLocation);
                                 markerOptions.title("Me");
-                                markerOptions.icon(getBitmapDescriptor(R.drawable.ic_userlocationicon));
+                                //markerOptions.icon(getBitmapDescriptor(R.drawable.ic_userlocationicon));
                                 mMap.addMarker(markerOptions);
                                 //Moving the camera to the device location
                                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentUserLocation, DEFAULT_ZOOM));
@@ -884,7 +847,7 @@ public class MainActivity extends AppCompatActivity
                                             MarkerOptions markerOptions = new MarkerOptions();
                                             markerOptions.position(userLocation);
                                             markerOptions.title("Me");
-                                            markerOptions.icon(getBitmapDescriptor(R.drawable.ic_userlocationicon));
+                                            //markerOptions.icon(getBitmapDescriptor(R.drawable.ic_userlocationicon));
                                             mMap.addMarker(markerOptions);
                                             //Moving the camera to the device location
                                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, DEFAULT_ZOOM));
@@ -929,7 +892,8 @@ public class MainActivity extends AppCompatActivity
                         @Override
                         public void onClick(DialogInterface dialog, int which)
                         {
-
+                            //Calling the functionality display direction
+                            new FetchDownloadUrl(MainActivity.this).execute(getRequestUrl(currentUserLocation, ksmCountyReferalHsp, "driving"), "driving");
                         }
                     }).show();
             return true;
