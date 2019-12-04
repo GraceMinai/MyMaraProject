@@ -32,6 +32,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -85,10 +87,13 @@ import java.util.List;
 
 import io.fabric.sdk.android.Fabric;
 import www.mara.android.com.DirectionHelpersPackage.FetchDownloadUrl;
+import www.mara.android.com.DirectionHelpersPackage.TaskLoadedCallback;
 import www.mara.android.com.R;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, OnMarkerClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        OnMapReadyCallback, OnMarkerClickListener, TaskLoadedCallback
+{
 
     //Object related to google map
     private GoogleMap mMap;
@@ -106,6 +111,8 @@ public class MainActivity extends AppCompatActivity
     private View mapView;
     private Dialog aboutPopUpDialog;
     private  Button aboutPopUpButton;
+    private Polyline currentPolyline;
+
 
 
     private final float DEFAULT_ZOOM = 13;
@@ -113,9 +120,12 @@ public class MainActivity extends AppCompatActivity
     private long backPressedTime;
     private Toast backPressedToast;
     public String key;
+    private  String directionUrl;
+    private LatLng currentUserLocation;
+
 
     private Marker rehubMarker;
-    private LatLng currentUserLocation = new LatLng(-0.077059, 34.771637);
+    //private LatLng currentUserLocation = new LatLng(-0.077059, 34.771637);
 
     private LatLng ksmCountyReferalHsp = new LatLng(-0.101537, 34.755620);
 
@@ -154,6 +164,7 @@ public class MainActivity extends AppCompatActivity
 
         //initializing the aboutPopUpDialog
         aboutPopUpDialog = new Dialog(this);
+
 
 
         //implementing the map
@@ -307,33 +318,7 @@ public class MainActivity extends AppCompatActivity
                 startActivity(new Intent(MainActivity.this, ConnectWithExpert.class));
             }
         });
-        /*
-        Adding a crash Button (Start)
 
-        Button crashButton = new Button(this);
-        crashButton.setText("Crash!");
-        crashButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
-                //forcing a crash
-                Crashlytics.getInstance().crash();
-
-
-            }
-        });
-
-        addContentView(crashButton,  new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT));
-
-
-        adding a crash button (End)
-         */
-
-        /*setBasicCrashKey( key);
-        enableRuntime();
-        resetKey();*/
 
 
     }
@@ -377,23 +362,16 @@ public class MainActivity extends AppCompatActivity
     private void showMarkersOnTheMap()
 
     {
-        /***  //Adding a marker at Kisumu county referral hospital
-        LatLng ksmCountyReferalHsp = new LatLng(-0.101537, 34.755620);
-        mMap.addMarker(new MarkerOptions()
-            .position(ksmCountyReferalHsp)
-            //.title("Kisumu County Referral Hospital")
-            //.snippet("Contact : 0710286818")
-            .icon(getBitmapDescriptor(R.drawable.ic_greenmarker))); **/
 
 
         //Adding a marker at Blue Cross Railways branch
 
-        /**LatLng blueCrossRailwaysBranch = new LatLng(-0.077059, 34.771637);
+        LatLng blueCrossRailwaysBranch = new LatLng(-0.077059, 34.771637);
         mMap.addMarker(new MarkerOptions()
              .position(blueCrossRailwaysBranch)
              .title("Blue Cross Railways Branch")
              .snippet("Contact : 0792965139")
-             .icon(getBitmapDescriptor(R.drawable.ic_greenmarker))); **/
+             .icon(getBitmapDescriptor(R.drawable.ic_greenmarker)));
 
         //Adding marker at Lutheran Special School
 
@@ -660,11 +638,7 @@ public class MainActivity extends AppCompatActivity
                 //If the gps is enabled we'll get the device location
                 getDeviceLocation();
 
-                //Creating a URL TO GET REQUEST FROM GOOGLE MAPS DIRECTION API (From the user location to the rehubCenter)
-                if (currentUserLocation != null)
-                {
-                    String directionUrl = getRequestUrl(currentUserLocation, ksmCountyReferalHsp, "driving");
-                }
+
             }
         });
         task.addOnFailureListener(MainActivity.this, new OnFailureListener()
@@ -694,43 +668,14 @@ public class MainActivity extends AppCompatActivity
 
         mMap.setOnMarkerClickListener(this);
 
-        //Setting a listener to perform an action when the marker is clicked
-       /***** mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener()
-        {
-            @Override
-            public boolean onMarkerClick(Marker marker)
-            {
 
-                if (marker.equals(ksmCountyReferalHsp))
-                {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                    builder.setTitle("Kisumu County Referral Hospital");
-                    builder.setMessage("Do you want to get direction to this place?")
-                            .setNegativeButton("Cancel", null)
-                            .setPositiveButton("Ok", new DialogInterface.OnClickListener()
-                            {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which)
-                                {
-
-                                }
-                            })
-                            .show();
-                    return true;
-                }
-                return false;
-            }
-        }); *****/
-
+       //Adding marker at Kisumu County hospital
        mMap.addMarker(new MarkerOptions()
            .position(ksmCountyReferalHsp)
            .icon(getBitmapDescriptor(R.drawable.ic_greenmarker)));
 
 
-        mMap.addMarker(new MarkerOptions()
-                .position(currentUserLocation)
-                .title("Me")
-                .icon(getBitmapDescriptor(R.drawable.ic_userlocationicon)));
+
 
 
 
@@ -807,13 +752,16 @@ public class MainActivity extends AppCompatActivity
                             if (userLastKnownLocation != null)
                             {
                                 //Getting the current user location
-                                LatLng currentUserLocation = new LatLng(userLastKnownLocation.getLatitude(), userLastKnownLocation.getLongitude());
+                                currentUserLocation = new LatLng(userLastKnownLocation.getLatitude(), userLastKnownLocation.getLongitude());
+
+                                //Creating a URL TO GET REQUEST FROM GOOGLE MAPS DIRECTION API (From the user location to the rehubCenter)
+                                directionUrl = getRequestUrl(currentUserLocation, ksmCountyReferalHsp, "driving");
 
                                 //Adding a marker to the current user location
                                 MarkerOptions markerOptions = new MarkerOptions();
                                 markerOptions.position(currentUserLocation);
                                 markerOptions.title("Me");
-                                //markerOptions.icon(getBitmapDescriptor(R.drawable.ic_userlocationicon));
+                                markerOptions.icon(getBitmapDescriptor(R.drawable.ic_userlocationicon));
                                 mMap.addMarker(markerOptions);
                                 //Moving the camera to the device location
                                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentUserLocation, DEFAULT_ZOOM));
@@ -847,7 +795,7 @@ public class MainActivity extends AppCompatActivity
                                             MarkerOptions markerOptions = new MarkerOptions();
                                             markerOptions.position(userLocation);
                                             markerOptions.title("Me");
-                                            //markerOptions.icon(getBitmapDescriptor(R.drawable.ic_userlocationicon));
+                                            markerOptions.icon(getBitmapDescriptor(R.drawable.ic_userlocationicon));
                                             mMap.addMarker(markerOptions);
                                             //Moving the camera to the device location
                                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, DEFAULT_ZOOM));
@@ -874,13 +822,16 @@ public class MainActivity extends AppCompatActivity
                 });
 
 
+
+
+
     }
 
 
     @Override
     public boolean onMarkerClick(Marker marker)
     {
-
+        getDeviceLocation();
         if (marker.getPosition().equals(ksmCountyReferalHsp))
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
@@ -892,8 +843,7 @@ public class MainActivity extends AppCompatActivity
                         @Override
                         public void onClick(DialogInterface dialog, int which)
                         {
-                            //Calling the functionality display direction
-                            new FetchDownloadUrl(MainActivity.this).execute(getRequestUrl(currentUserLocation, ksmCountyReferalHsp, "driving"), "driving");
+                            new FetchDownloadUrl(MainActivity.this).execute(directionUrl, "driving");
                         }
                     }).show();
             return true;
@@ -902,4 +852,18 @@ public class MainActivity extends AppCompatActivity
         }
         return false;
     }
+   //For displaying the polyline
+    @Override
+    public void onTaskDone(Object... values)
+    {
+        if (currentPolyline != null)
+        {
+            currentPolyline.remove();
+            currentPolyline = mMap.addPolyline((PolylineOptions) values[0]);
+        }
+
+
+    }
+
+
 }

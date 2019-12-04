@@ -13,10 +13,9 @@ import java.util.List;
 //This class is used to parse the data obtained from Google Directions Api
 public class DirectionJSONParser
 {
-    /** Receives a JSONObject and returns a list of lists containing latitude and longitude */
-    public List<List<HashMap<String,String>>> parse(JSONObject
-
-                                                    )
+    /** Receives a JSONObject and returns a list of lists containing latitude and longitude
+     * @param jsonObject*/
+    public List<List<HashMap<String,String>>> parse(JSONObject jsonObject)
     {
         //Creating an array list of routes
         List<List<HashMap<String,String>>> routes = new ArrayList<>();

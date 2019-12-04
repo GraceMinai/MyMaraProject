@@ -99,8 +99,7 @@ public class FetchDownloadUrl extends AsyncTask<String, Void, String>
         }
         finally
         {
-            inputStream.close();
-            httpURLConnection.disconnect();
+
         }
         return data;
 

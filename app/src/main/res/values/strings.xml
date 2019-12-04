@@ -19,7 +19,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCJwf1wgQDeG2nI86avjCBfVKgkv5q51bo</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyC77390foXJ1Wkok423UNmOjo_nvoO3vlc</string>
     <string name="title_activity_maps">Locate a Rehub Center</string>
     <string name="title_activity_get_help">Connect with expert</string>
     <string name="title_activity_user_posts">Posts</string>
