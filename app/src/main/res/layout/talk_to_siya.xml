@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:gravity="center">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="15dp"
+        app:cardBackgroundColor="@color/white"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        >
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="17dp"
+                android:layout_marginBottom="17dp"
+                >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/ic_rabbit">
+
+                </ImageView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="20dp"
+                    android:text="Tap the mic to talk to Siya"
+                    android:fontFamily="@font/montserrat"
+                    android:textSize="12sp"
+                    android:textColor="#585858">
+
+                </TextView>
+
+
+                <ImageButton
+                    android:id="@+id/btn_userInput_mic"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:src="@drawable/ic_keyboard_voice"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/btn_send_bg">
+
+                </ImageButton>
+
+
+
+
+
+
+                <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="30dp"
+                android:textAlignment="textStart"
+                android:textSize="12sp"
+                    android:elevation="5dp"
+                    android:textColor="#585858"
+                    android:text=""
+                    android:hint="Your message..."
+                    android:textStyle="normal"
+                    android:fontFamily="@font/montserrat"
+                    android:background="@drawable/user_bubble"
+                    android:id="@+id/tv_pop_up_userSpeech_input"
+                    android:padding="8dp"
+                    >
+
+                </TextView>
+
+
+
+
+                <TextView
+                    android:id="@+id/tv_pop_up_botMessage_output"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="50dp"
+                    android:textAlignment="textStart"
+                    android:textSize="12sp"
+                    android:textColor="#fff"
+                    android:text=""
+                    android:background="@drawable/bot_bubble"
+                    android:hint="Response from Siya..."
+                    android:padding="8dp"
+                    android:textColorHint="#585858">
+
+                </TextView>
+
+
+
+
+
+
+
+            </LinearLayout>
+
+
+
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

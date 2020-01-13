@@ -521,7 +521,7 @@ public class MainActivity extends AppCompatActivity
          }
          else if (id == R.id.nav_forum)
          {
-
+            startActivity(new Intent(MainActivity.this, SafeSpaces.class));
          }
          else if (id == R.id.nav_about)
          {
@@ -843,6 +843,7 @@ public class MainActivity extends AppCompatActivity
                         @Override
                         public void onClick(DialogInterface dialog, int which)
                         {
+                            //Showing the direction on the map
                             new FetchDownloadUrl(MainActivity.this).execute(directionUrl, "driving");
                         }
                     }).show();
